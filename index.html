@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pirate Chest</title>
+<link rel="icon" href="img/token.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1c1d21; --panel:#26272d; --panel2:#2f3037; --line:#3a3b44;
+  --text:#f3f1ea; --muted:#9a98a6;
+  --gold1:#fff1a8; --gold2:#ffcf3d; --gold3:#d99a12; --gold4:#8a5a06;
+  --r-mythic:#ffcf3d; --r-legend:#ff8a2a; --r-epic:#c35cff; --r-rare:#3fa9ff; --r-unc:#5fd35a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{
+  background:radial-gradient(ellipse at 50% 35%,#2c2d34 0%,#1c1d21 60%,#141418 100%);
+  color:var(--text);font-family:Inter,system-ui,sans-serif;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+body::before{ /* faint floor grid like the reference render */
+  content:"";position:fixed;inset:45% -20% -10% -20%;pointer-events:none;
+  background-image:linear-gradient(#ffffff0a 1px,transparent 1px),linear-gradient(90deg,#ffffff0a 1px,transparent 1px);
+  background-size:70px 70px;transform:perspective(500px) rotateX(62deg);transform-origin:top;
+  mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);
+}
+.display{font-family:"Luckiest Guy",Impact,sans-serif;letter-spacing:.02em;font-weight:400}
+
+/* ---------- Header ---------- */
+header{
+  position:relative;z-index:5;display:flex;align-items:center;gap:12px;
+  padding:12px clamp(12px,3vw,28px);
+}
+.brand{font-size:clamp(22px,3.4vw,34px);line-height:1;color:#fff;
+  text-shadow:0 3px 0 #000,0 0 18px #ffcf3d55}
+.brand span{color:var(--gold2)}
+.spacer{flex:1}
+.navbtn{
+  background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:10px;
+  padding:9px 14px;font:700 14px Inter,sans-serif;cursor:pointer;display:flex;align-items:center;gap:7px;
+  transition:background .15s,border-color .15s;
+}
+.navbtn:hover{background:var(--panel2);border-color:#555}
+.navbtn .badge{background:var(--gold2);color:#2b1a00;border-radius:999px;padding:1px 7px;font-size:12px}
+.tokens{
+  display:flex;align-items:center;gap:8px;padding:5px 14px 5px 6px;border-radius:999px;
+  background:linear-gradient(180deg,#3a2c0a,#24190395);border:2px solid var(--gold3);
+  box-shadow:0 0 0 1px #000 inset,0 0 18px #ffcf3d33;
+}
+.tokens img{width:34px;height:34px;filter:drop-shadow(0 2px 3px #000)}
+.tokens b{font-family:"Luckiest Guy",Impact,sans-serif;font-size:24px;line-height:1;color:var(--gold1);
+  text-shadow:0 2px 0 #000;min-width:1.2ch;text-align:center}
+.tokens small{font-size:11px;color:#e6c76c;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.1}
+.tokens.bump{animation:bump .6s}
+@keyframes bump{30%{transform:scale(1.25)}60%{transform:scale(.95)}100%{transform:scale(1)}}
+
+/* ---------- Stage ---------- */
+main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
+#stage{flex:1;min-height:0;position:relative;display:flex;align-items:center;justify-content:center;padding:8px 12px}
+#grid{display:grid;justify-content:center;align-content:center;gap:var(--gap,14px)}
+
+.chest{position:relative;width:var(--cw);aspect-ratio:604/518;perspective:calc(var(--cw)*2.2);
+  animation:chestIn .35s ease-out both}
+@keyframes chestIn{from{opacity:0;transform:translateY(10px) scale(.92)}}
+.chest .shadow{position:absolute;left:6%;right:6%;bottom:-4%;height:12%;border-radius:50%;
+  background:radial-gradient(#000a,transparent 70%);filter:blur(2px)}
+.chest .rays{position:absolute;left:50%;top:48%;width:210%;aspect-ratio:1;translate:-50% -50%;
+  background:repeating-conic-gradient(from 0deg,#ffe58a55 0 7deg,transparent 7deg 22deg);
+  mask-image:radial-gradient(circle,#000 0,#0008 30%,transparent 62%);
+  opacity:0;scale:.3;pointer-events:none;z-index:0}
+.chest .glow{position:absolute;left:50%;top:52%;width:120%;aspect-ratio:1;translate:-50% -50%;
+  background:radial-gradient(circle,#fff3b0cc 0,#ffcf3d55 25%,transparent 60%);opacity:0;z-index:0;pointer-events:none}
+.chest .inside{position:absolute;left:9%;width:82%;top:47%;height:19%;border-radius:50%;z-index:1;opacity:0;
+  background:radial-gradient(ellipse at 50% 60%,#fff6c8 0,#ffd85a 22%,#a8650b 52%,#3b2103 78%);
+  box-shadow:0 0 calc(var(--cw)*.12) #ffd75a, inset 0 calc(var(--cw)*-.01) calc(var(--cw)*.02) #000a}
+.chest .body,.chest .lid{position:absolute;left:0;width:100%;background-size:100% 100%;pointer-events:none}
+.chest .body{top:57.92%;height:42.08%;background-image:url(img/body.webp);z-index:2}
+.chest .lid{top:0;height:57.92%;background-image:url(img/lid.webp);z-index:3;
+  transform-origin:50% 92%;transition:transform .5s cubic-bezier(.2,1.6,.4,1),filter .5s}
+.chest.shake{animation:shake .55s ease-in-out}
+@keyframes shake{
+  0%,100%{transform:none}15%{transform:rotate(-4deg) translateY(-2%)}30%{transform:rotate(4deg)}
+  45%{transform:rotate(-3deg) translateY(-3%)}60%{transform:rotate(3deg)}75%{transform:rotate(-1.5deg)}}
+.chest.open .lid{transform:translateY(-32%) rotateX(46deg) rotateZ(-3deg);filter:brightness(.85)}
+.chest.open .inside{opacity:1;transition:opacity .25s}
+.chest.open .glow{opacity:.35;transition:opacity .4s}
+.chest.open.win .glow{opacity:1}
+.chest.open.win .rays{opacity:1;scale:1;transition:opacity .5s,scale .6s;animation:spin 9s linear infinite}
+@keyframes spin{to{rotate:360deg}}
+
+.reward{position:absolute;left:50%;top:50%;width:46%;z-index:4;translate:-50% -50%;
+  opacity:0;transform:translateY(12%) scale(.15);pointer-events:none}
+.chest.open .reward{opacity:1;transform:translateY(-38%) scale(1);
+  transition:transform .7s cubic-bezier(.18,1.5,.4,1) .12s,opacity .2s .12s}
+.reward .card{position:relative;border-radius:9%/7%;overflow:hidden;aspect-ratio:210/260;
+  border:max(2px,calc(var(--cw)*.012)) solid var(--rc);
+  box-shadow:0 0 0 max(1px,calc(var(--cw)*.006)) #000,0 0 calc(var(--cw)*.1) var(--rc),0 calc(var(--cw)*.02) calc(var(--cw)*.04) #000c;
+  background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--rc) 60%,#fff),color-mix(in srgb,var(--rc) 45%,#120c2a) 70%)}
+.reward .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.reward .card.fit img{object-fit:contain;padding:5%}
+.reward .card::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,transparent 30%,#ffffff66 45%,transparent 60%);
+  transform:translateX(-120%);animation:shine 2.4s 1s ease-in-out infinite}
+@keyframes shine{40%,100%{transform:translateX(120%)}}
+.label{position:absolute;left:50%;bottom:3%;translate:-50% 0;z-index:5;width:max-content;max-width:118%;
+  text-align:center;opacity:0;transform:translateY(30%);pointer-events:none}
+.chest.open .label{opacity:1;transform:none;transition:all .35s .45s}
+.label .n{display:block;font-family:"Luckiest Guy",Impact,sans-serif;font-size:max(10px,calc(var(--cw)*.075));
+  line-height:1.05;color:#fff;text-shadow:0 2px 0 #000,0 0 6px #000}
+.label .t{display:inline-block;margin-top:2px;font-size:max(8px,calc(var(--cw)*.045));font-weight:800;color:#1a1200;
+  background:var(--rc);border-radius:999px;padding:.1em .7em;box-shadow:0 1px 0 #000}
+.label .odds{display:block;font-size:max(8px,calc(var(--cw)*.04));color:#ddd;font-weight:700;text-shadow:0 1px 2px #000}
+.chest.empty .label .n{color:#c9c6d6;font-size:max(9px,calc(var(--cw)*.06))}
+.chest.compact .label .t,.chest.compact .label .odds{display:none}
+
+/* ---------- Controls ---------- */
+.controls{position:relative;z-index:5;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+  gap:12px 18px;padding:12px 16px calc(14px + env(safe-area-inset-bottom))}
+.qty{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;padding:6px}
+.qty button{width:38px;height:38px;border-radius:10px;border:0;background:var(--panel2);color:#fff;
+  font:800 22px Inter,sans-serif;cursor:pointer}
+.qty button:hover:not(:disabled){background:#40414a}
+.qty button:disabled{opacity:.35;cursor:default}
+.qty output,.unused{min-width:62px;text-align:center;font-family:"Luckiest Guy",Impact,sans-serif;font-size:24px;line-height:1}
+.qty output small{display:block;font:700 10px Inter,sans-serif;color:var(--muted);letter-spacing:.08em}
+.presets{display:flex;gap:6px}
+.presets button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;
+  padding:6px 11px;font:700 13px Inter,sans-serif;cursor:pointer}
+.presets button.on{background:var(--gold2);border-color:var(--gold2);color:#2b1a00}
+.presets button:disabled{opacity:.4;cursor:default}
+
+#openBtn{
+  position:relative;min-width:230px;height:62px;border-radius:16px;cursor:pointer;
+  font-family:"Luckiest Guy",Impact,sans-serif;font-size:28px;letter-spacing:.04em;color:#3a2200;
+  text-shadow:0 1px 0 #fff6;
+  border:3px solid #5a3700;
+  background:linear-gradient(180deg,var(--gold1) 0%,var(--gold2) 38%,var(--gold3) 78%,#b07506 100%);
+  box-shadow:0 5px 0 #6b4300,0 8px 22px #ffcf3d40,inset 0 2px 0 #fff9;
+  transition:filter 0s,transform .1s;
+}
+#openBtn:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.07)}
+#openBtn:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #6b4300,inset 0 2px 0 #fff9}
+#openBtn:disabled{cursor:default}
+/* "Recharge": jumps to grey, then fades back to gold over --cool ms */
+#openBtn.cool{filter:grayscale(1) brightness(.55);transition:none}
+#openBtn.recharging{transition:filter var(--cool,2000ms) cubic-bezier(.6,0,.4,1)}
+#openBtn .sub{display:block;font:800 11px Inter,sans-serif;letter-spacing:.1em;color:#5a3a00;margin-top:-2px}
+
+/* ---------- Drawer ---------- */
+.scrim{position:fixed;inset:0;background:#0008;z-index:20;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--panel);z-index:21;
+  border-left:1px solid var(--line);transform:translateX(102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.drawer header{border-bottom:1px solid var(--line)}
+.drawer h2{font-size:26px}
+.drawer .x{background:none;border:0;color:var(--muted);font-size:28px;cursor:pointer;line-height:1;padding:4px 8px}
+.drawer .body{flex:1;overflow:auto;padding:16px}
+.tabs{display:flex;gap:6px;padding:12px 16px 0}
+.tabs button{flex:1;background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:10px;
+  padding:9px;font:800 13px Inter,sans-serif;cursor:pointer}
+.tabs button.on{color:#2b1a00;background:var(--gold2);border-color:var(--gold2)}
+.muted{color:var(--muted);font-size:13px}
+.found{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.found b{font-size:20px}
+.inv{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.item{background:var(--panel2);border-radius:12px;overflow:hidden;border:1px solid var(--line);position:relative}
+.item .art{aspect-ratio:210/220;position:relative;
+  background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--rc) 55%,#fff),color-mix(in srgb,var(--rc) 40%,#120c2a) 75%)}
+.item .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.item .art.fit img{object-fit:contain;padding:12%}
+.item.locked .art{filter:grayscale(1) brightness(.35)}
+.item.locked .art::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;
+  font:400 54px "Luckiest Guy",Impact;color:#fff5}
+.item .meta{padding:9px 10px 10px;border-top:3px solid var(--rc)}
+.item .meta b{display:block;font-size:14px;line-height:1.2}
+.item .meta span{font-size:12px;color:var(--muted)}
+.item .count{position:absolute;top:8px;right:8px;background:#000c;border:1px solid var(--rc);color:#fff;
+  font:800 13px Inter,sans-serif;border-radius:999px;padding:2px 9px}
+.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
+.stat b{display:block;font:400 22px "Luckiest Guy",Impact}
+.stat span{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+
+.lb{list-style:none;display:flex;flex-direction:column;gap:6px}
+.lb li{display:flex;align-items:center;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.lb li.you{border-color:var(--gold2);box-shadow:0 0 0 1px var(--gold2) inset}
+.lb .rk{width:34px;font:400 20px "Luckiest Guy",Impact;color:var(--muted);text-align:center}
+.lb li:nth-child(1) .rk{color:#ffd54a}.lb li:nth-child(2) .rk{color:#d6d9e0}.lb li:nth-child(3) .rk{color:#e09b5a}
+.lb .nm{flex:1;font-weight:700}
+.lb .nm em{font-style:normal;font-size:11px;background:var(--gold2);color:#2b1a00;border-radius:999px;padding:1px 7px;margin-left:6px}
+.lb .tk{display:flex;align-items:center;gap:6px;font:400 20px "Luckiest Guy",Impact;color:var(--gold1)}
+.lb .tk img{width:24px;height:24px}
+.me{margin-top:14px;padding:12px;border-radius:10px;background:#ffcf3d14;border:1px dashed var(--gold3);font-size:14px}
+.empty-lb{text-align:center;padding:30px 10px;color:var(--muted)}
+.empty-lb img{width:72px;opacity:.8;margin-bottom:8px}
+
+.odds{width:100%;border-collapse:collapse;font-size:14px}
+.odds td{padding:9px 6px;border-bottom:1px solid var(--line)}
+.odds td:first-child{display:flex;align-items:center;gap:10px}
+.odds .sw{width:10px;height:10px;border-radius:3px;background:var(--rc);flex:none}
+.odds td:last-child{text-align:right;color:var(--muted);font-weight:700;white-space:nowrap}
+
+/* ---------- Big win ---------- */
+.bigwin{position:fixed;inset:0;z-index:30;display:grid;place-items:center;background:#000b;opacity:0;pointer-events:none;transition:opacity .3s}
+.bigwin.on{opacity:1;pointer-events:auto}
+.bigwin .box{text-align:center;transform:scale(.6);transition:transform .5s cubic-bezier(.2,1.6,.4,1)}
+.bigwin.on .box{transform:none}
+.bigwin h3{font-size:clamp(34px,7vw,64px);color:var(--rc);text-shadow:0 4px 0 #000,0 0 30px var(--rc)}
+.bigwin .card{width:min(260px,60vw);margin:14px auto;border-radius:16px;overflow:hidden;aspect-ratio:210/260;position:relative;
+  border:4px solid var(--rc);box-shadow:0 0 60px var(--rc);
+  background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--rc) 60%,#fff),color-mix(in srgb,var(--rc) 45%,#120c2a) 70%)}
+.bigwin .card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bigwin .card.fit img{object-fit:contain;padding:10%}
+.bigwin p{font-weight:800;font-size:18px}
+.bigwin p span{color:var(--muted);font-weight:700;font-size:14px;display:block;margin-top:4px}
+.bigwin button{margin-top:18px;background:var(--gold2);border:0;border-radius:12px;padding:12px 28px;
+  font:400 20px "Luckiest Guy",Impact;color:#2b1a00;cursor:pointer}
+.fly{position:fixed;z-index:40;width:56px;height:56px;pointer-events:none;
+  transition:transform .9s cubic-bezier(.5,-0.3,.6,1),opacity .9s;filter:drop-shadow(0 0 10px #ffcf3d)}
+.confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:31;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+.toast{position:fixed;left:50%;bottom:110px;translate:-50% 0;background:#000d;border:1px solid var(--line);
+  padding:10px 16px;border-radius:10px;font-size:14px;z-index:25;opacity:0;transition:opacity .3s}
+.toast.on{opacity:1}
+
+/* ---------- Pirate Token cinematic ---------- */
+#stage{transform-origin:0 0}
+#stage.zooming{transition:transform .75s cubic-bezier(.7,0,.2,1)}
+.vignette{position:fixed;inset:0;z-index:15;pointer-events:none;opacity:0;transition:opacity .6s;
+  background:radial-gradient(ellipse 34% 42% at var(--vx,50%) var(--vy,50%),transparent 35%,#000000e0 100%)}
+.vignette.on{opacity:1}
+.chest.focus{z-index:16}
+.chest.rumble{animation:rumble 2.8s linear both}
+.chest.rumble .lid{animation:peek 2.8s linear both}
+.chest.rumble .inside{animation:leak 2.8s linear both}
+@keyframes rumble{
+  0%,10%{transform:none}
+  12%{transform:translate(-1%,0) rotate(-2deg)}14%{transform:translate(1%,-1%) rotate(2deg)}16%{transform:none}
+  34%{transform:none}36%{transform:translateY(-5%) rotate(-4deg)}39%{transform:rotate(3deg)}42%{transform:rotate(-1deg)}44%{transform:none}
+  56%{transform:none}58%{transform:translate(2%,-3%) rotate(4deg)}60%{transform:translate(-2%,0) rotate(-4deg)}62%{transform:translate(1%,-2%) rotate(3deg)}64%{transform:none}
+  72%{transform:translate(-1%,-1%) rotate(-3deg)}74%{transform:translate(1%,-2%) rotate(3deg)}76%{transform:translate(-1%,0) rotate(-3deg)}
+  78%{transform:translate(1%,-3%) rotate(4deg)}80%{transform:translate(-2%,-1%) rotate(-4deg)}82%{transform:translate(2%,-4%) rotate(5deg)}
+  84%{transform:translate(-2%,-2%) rotate(-5deg)}86%{transform:translate(2%,-5%) rotate(5deg)}88%{transform:translate(-2%,-3%) rotate(-6deg)}
+  90%{transform:translate(2%,-6%) rotate(6deg)}92%{transform:translate(-2%,-4%) rotate(-6deg)}94%{transform:translate(2%,-7%) rotate(6deg)}
+  96%{transform:translate(-2%,-5%) rotate(-5deg)}98%{transform:translate(1%,-6%) rotate(4deg)}100%{transform:translateY(-4%)}}
+@keyframes peek{
+  0%,34%{transform:none}37%{transform:translateY(-7%) rotateX(18deg)}42%,56%{transform:none}
+  59%{transform:translateY(-9%) rotateX(24deg)}64%,72%{transform:none}
+  76%{transform:translateY(-6%) rotateX(14deg)}80%{transform:none}84%{transform:translateY(-8%) rotateX(20deg)}88%{transform:none}
+  92%{transform:translateY(-10%) rotateX(26deg)}96%{transform:none}100%{transform:translateY(-5%) rotateX(12deg)}}
+@keyframes leak{0%,34%{opacity:0}37%{opacity:.9}42%,56%{opacity:0}59%{opacity:1}64%,74%{opacity:0}76%,100%{opacity:1}}
+
+/* golden phase: chest turns gold, buzzes, rings circle it */
+.chest.golden{animation:buzz .09s linear infinite;filter:drop-shadow(0 0 calc(var(--cw)*.06) #ffd84a) drop-shadow(0 0 calc(var(--cw)*.15) #ffb80088)}
+.chest.golden .lid{animation:none;transform:translateY(-5%) rotateX(12deg)}
+.chest.golden .inside{animation:none;opacity:1}
+.chest.golden .body,.chest.golden .lid{filter:sepia(1) saturate(3.2) hue-rotate(-12deg) brightness(1.35);transition:filter 1.6s ease-in,transform .5s cubic-bezier(.2,1.6,.4,1)}
+.chest.golden.open .lid{transform:translateY(-34%) rotateX(46deg) rotateZ(-3deg)}
+.chest.golden.open{animation:none}
+@keyframes buzz{0%{transform:translate(0,-4%) rotate(0)}25%{transform:translate(-1%,-5%) rotate(-1.5deg)}50%{transform:translate(1%,-4%) rotate(1.5deg)}75%{transform:translate(-1%,-3%) rotate(-1deg)}100%{transform:translate(0,-4%)}}
+.halo{position:absolute;left:50%;top:60%;width:175%;aspect-ratio:1;translate:-50% -50%;pointer-events:none;opacity:0;scale:.3;
+  transition:opacity .6s,scale 1s cubic-bezier(.2,1.4,.4,1)}
+.halo.back{z-index:1}
+.halo.front{z-index:6;mask-image:linear-gradient(to bottom,transparent 50%,#000 50%);-webkit-mask-image:linear-gradient(to bottom,transparent 50%,#000 50%)}
+.halo .ring{position:absolute;inset:0;transform:rotateX(74deg);border-radius:50%}
+.halo .ring::before,.halo .ring::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,transparent 0 40%,#fff6c8 52%,#ffcf3d 62%,#ff9d00 70%,transparent 80%,transparent 90%,#ffe680 96%,transparent);
+  -webkit-mask:radial-gradient(closest-side,transparent 78%,#000 82%,#000 92%,transparent 96%);
+          mask:radial-gradient(closest-side,transparent 78%,#000 82%,#000 92%,transparent 96%);
+  animation:spin .7s linear infinite}
+.halo .ring::after{inset:9%;animation-duration:1.1s;animation-direction:reverse;opacity:.8}
+.halo .ring i{position:absolute;left:50%;top:50%;width:5%;aspect-ratio:1;border-radius:50%;background:#fff8d0;
+  box-shadow:0 0 12px 4px #ffd84a;offset-path:circle(48%);animation:orbit 1.2s linear infinite}
+.halo.tall{top:48%;width:150%}
+.halo.tall .ring{transform:rotateX(74deg) rotateY(58deg)}
+.halo.tall .ring::before{animation-duration:.9s}
+@keyframes orbit{to{offset-distance:100%}}
+.halo .ring i{left:0;top:0}
+.chest.golden .halo{opacity:1;scale:1}
+.chest.golden .rays{opacity:1;scale:1.15;transition:opacity .8s,scale 1s;animation:spin 3s linear infinite}
+.chest.golden .glow{opacity:1;transition:opacity .8s}
+.flash{position:fixed;inset:0;z-index:34;background:radial-gradient(circle at var(--vx,50%) var(--vy,50%),#fff 0,#fff6c8 40%,#ffd84a00 100%);
+  pointer-events:none;opacity:0}
+.flash.go{animation:flash .9s ease-out}
+@keyframes flash{0%{opacity:0}12%{opacity:1}100%{opacity:0}}
+.fx{position:fixed;left:0;top:0;width:100vw;height:56.25vw;z-index:36;pointer-events:none;opacity:0;transition:opacity .4s}
+.fx.on{opacity:1}
+.fxbar{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:37;display:flex;gap:8px;opacity:0;pointer-events:none;transition:opacity .3s}
+.fxbar.on{opacity:1;pointer-events:auto}
+.fxbar button{background:#000a;color:#fff;border:1px solid #ffffff40;border-radius:999px;padding:8px 16px;font:800 13px Inter,sans-serif;cursor:pointer;backdrop-filter:blur(4px)}
+.fxbar button:hover{background:#000d}
+
+/* ---------- big batches ---------- */
+#cgrid{position:absolute;left:50%;top:50%;translate:-50% -50%;image-rendering:auto}
+@property --cw{syntax:'<length>';inherits:true;initial-value:100px}
+.chest.overlay{position:absolute;transition:--cw .75s cubic-bezier(.7,0,.2,1),left .75s cubic-bezier(.7,0,.2,1),top .75s cubic-bezier(.7,0,.2,1)}
+.chest.overlay:not(.rumble):not(.golden){animation:none}
+.chest.overlay.compact .label{display:none}
+.summary{position:absolute;left:50%;top:6px;translate:-50% 0;z-index:7;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;
+  max-width:calc(100% - 24px);padding:6px 8px;border-radius:14px;background:#15161acc;border:1px solid var(--line);backdrop-filter:blur(6px);
+  animation:chestIn .3s ease-out both}
+.summary .tot{font:800 12px Inter,sans-serif;color:var(--muted);padding:0 6px;letter-spacing:.04em;text-transform:uppercase}
+.summary .chip{display:flex;align-items:center;gap:6px;padding:3px 10px 3px 3px;border-radius:999px;background:var(--panel2);
+  border:1px solid var(--rc);font:800 13px Inter,sans-serif}
+.summary .chip img{width:26px;height:26px;border-radius:50%;object-fit:cover;background:color-mix(in srgb,var(--rc) 50%,#120c2a)}
+.summary .chip.fit img{object-fit:contain;padding:2px}
+.summary .chip b{color:var(--rc)}
+.summary .none{font:700 13px Inter,sans-serif;color:var(--muted);padding:2px 8px}
+.qtyin{display:flex;flex-direction:column;align-items:center;min-width:86px}
+.qtyin input{width:100%;background:transparent;border:0;outline:0;color:#fff;text-align:center;
+  font-family:"Luckiest Guy",Impact,sans-serif;font-size:24px;line-height:1;padding:0;border-bottom:1px dashed transparent}
+.qtyin input:hover,.qtyin input:focus{border-bottom-color:#ffffff40}
+.qtyin small{font:700 10px Inter,sans-serif;color:var(--muted);letter-spacing:.08em}
+.lagwarn{flex-basis:100%;text-align:center;font:700 12.5px Inter,sans-serif;color:#ffcf7a;margin-top:-4px}
+.lagwarn b{color:#ffe2a3}
+
+@media (max-width:640px){
+  .navbtn .lbl{display:none}
+  .tokens small{display:none}
+  .presets button{padding:5px 9px}
+  #openBtn{min-width:180px;height:56px;font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand display">Pirate <span>Chest</span></div>
+  <div class="spacer"></div>
+  <button class="navbtn" data-open="inv" title="Inventory">🎒 <span class="lbl">Inventory</span> <span class="badge" id="invBadge">0/5</span></button>
+  <button class="navbtn" data-open="lb" title="Leaderboard">🏆 <span class="lbl">Leaderboard</span></button>
+  <button class="navbtn" data-open="odds" title="Odds">🎲 <span class="lbl">Odds</span></button>
+  <div class="tokens" id="tokenBox" title="Pirate Shop Tokens">
+    <img src="img/token.webp" alt="">
+    <b id="tokenCount">0</b>
+    <small>Pirate<br>Tokens</small>
+  </div>
+</header>
+
+<main>
+  <div id="stage"><div id="grid"></div><canvas id="cgrid" hidden></canvas></div>
+  <div class="summary" id="summary" hidden></div>
+  <div class="controls">
+    <div class="qty">
+      <button id="minus" aria-label="Fewer chests">−</button>
+      <label class="qtyin"><input id="qtyIn" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="Number of chests" value="1"><small id="qtyUnit">CHESTS</small></label>
+      <button id="plus" aria-label="More chests">+</button>
+    </div>
+    <div class="presets" id="presets"></div>
+    <button id="openBtn">OPEN<span class="sub" id="openSub">1 CHEST</span></button>
+    <div class="lagwarn" id="lagWarn" hidden></div>
+  </div>
+</main>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <header><h2 class="display" id="drawerTitle">Inventory</h2><div class="spacer"></div><button class="x" id="closeDrawer" aria-label="Close">×</button></header>
+  <div class="tabs">
+    <button data-tab="inv">Inventory</button><button data-tab="lb">Leaderboard</button><button data-tab="odds">Odds</button>
+  </div>
+  <div class="body" id="drawerBody"></div>
+</aside>
+
+<div class="bigwin" id="bigwin"><div class="box" id="bigwinBox"></div></div>
+<div class="vignette" id="vignette"></div>
+<div class="flash" id="flash"></div>
+<canvas class="fx" id="fx"></canvas>
+<video id="fxVid" src="img/pirate-token.mp4" playsinline webkit-playsinline preload="auto" hidden></video>
+<div class="fxbar" id="fxbar"><button class="ghost" id="fxSound" hidden>🔊 Sound on</button><button id="fxSkip">Skip ›</button></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const REWARDS = [{"id": "uzi", "name": "Solid Gold Lil Uzi Vert", "type": "Outfit", "odds": 1562500, "rarity": "mythic", "img": "uzi"}, {"id": "token", "name": "Pirate Shop Access", "type": "Item Shop Token ×2", "odds": 137500, "rarity": "mythic", "img": "token", "fit": true, "tokens": 2}, {"id": "car", "name": "Golden Llama Crew", "type": "Car", "odds": 7813, "rarity": "legendary", "img": "car", "fit": true}, {"id": "bling", "name": "Diamond and Gold", "type": "Back Bling", "odds": 568, "rarity": "epic", "img": "bling"}, {"id": "london", "name": "London", "type": "Jam Track", "odds": 391, "rarity": "rare", "img": "london"}, {"id": "kawaii", "name": "So Kawaii", "type": "Loading Screen", "odds": 272, "rarity": "uncommon", "img": "kawaii"}];
+const RCOL = {mythic:'var(--r-mythic)',legendary:'var(--r-legend)',epic:'var(--r-epic)',rare:'var(--r-rare)',uncommon:'var(--r-unc)'};
+const byId = Object.fromEntries(REWARDS.map(r=>[r.id,r]));
+const $ = s=>document.querySelector(s);
+const fmt = n=>n.toLocaleString('en-US');
+
+/* ---------- local state ---------- */
+const store = {
+  get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch{return d}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}
+};
+let playerId = store.get('pc_id',null);
+if(!playerId){playerId = (crypto.randomUUID?crypto.randomUUID():([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,c=>(c^crypto.getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16))); store.set('pc_id',playerId);}
+let inv = store.get('pc_inv',{});
+let opened = store.get('pc_opened',0);
+let best = store.get('pc_best',null);
+let tokens = store.get('pc_tokens',0);
+let myName = store.get('pc_name','Anonymous');
+let count = Math.min(100_000_000,Math.max(1,store.get('pc_count',1)));
+let busy = false;
+
+/* ---------- shared leaderboard (Firebase Realtime Database, optional) ---------- */
+// Paste your database URL here, e.g. 'https://pirate-chest-default-rtdb.firebaseio.com'
+const FIREBASE_URL = '';
+const fb = FIREBASE_URL.replace(/\/+$/,'');
+async function nameFor(id){
+  const h=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('pc:'+id)));
+  return 'Anonymous #'+(((h[0]<<16)|(h[1]<<8)|h[2])%9000+1000);
+}
+async function pushScore(){
+  if(!fb) return;
+  try{
+    await fetch(`${fb}/players/${playerId}.json`,{method:'PUT',
+      body:JSON.stringify({name:myName,tokens,t:{'.sv':'timestamp'}})});
+  }catch{}
+}
+async function fetchBoard(){
+  if(!fb) return null;
+  const r=await fetch(`${fb}/players.json?orderBy=%22tokens%22&limitToLast=25`);
+  if(!r.ok) throw new Error(r.status);
+  const d=await r.json()||{};
+  return Object.entries(d).map(([id,p])=>({id,name:p.name,tokens:p.tokens}))
+    .filter(p=>p.tokens>0).sort((a,b)=>b.tokens-a.tokens);
+}
+/* ---------- rolling (fast, works for millions) ---------- */
+const DOM_MAX = 100;        // up to this many: full animated chests
+const DRAW_CAP = 20000;     // most chests drawn on screen at once
+const RHEX = {mythic:'#ffcf3d',legendary:'#ff8a2a',epic:'#c35cff',rare:'#3fa9ff',uncommon:'#5fd35a'};
+async function rollWins(n, onProgress){
+  if(window.__forceRoll){ const a=window.__forceRoll(n); return a.map((id,i)=>id?{i,id}:null).filter(Boolean); }
+  const T=[]; let acc=0;
+  for(const r of REWARDS){ acc+=1/r.odds; T.push([Math.floor(acc*2**32), r.id]); }
+  const TT=T[T.length-1][0], wins=[], buf=new Uint32Array(16384);
+  let i=0, nextYield=2_000_000;
+  while(i<n){
+    crypto.getRandomValues(buf);
+    const m=Math.min(buf.length,n-i);
+    for(let j=0;j<m;j++){
+      const x=buf[j];
+      if(x<TT){ for(const [t,id] of T){ if(x<t){ wins.push({i:i+j,id}); break; } } }
+    }
+    i+=m;
+    if(i>=nextYield && i<n){ nextYield+=2_000_000; onProgress&&onProgress(i/n); await sleep(0); }
+  }
+  return wins;
+}
+
+/* ---------- layout: shrink chests to fit ---------- */
+const isDom=()=>count<=DOM_MAX;
+function fitGrid(n, W, H, ar){
+  let bestW=0,bestC=1;
+  for(let c=1;c<=n;c++){
+    const r=Math.ceil(n/c), w=Math.min(W/c, (H/r)*ar);
+    if(w>bestW){bestW=w;bestC=c}
+  }
+  return {w:bestW, cols:bestC, rows:Math.ceil(n/bestC)};
+}
+function layout(){
+  if(!isDom()){ CG.resize(); return; }
+  const stage=$('#stage'), grid=$('#grid');
+  const W=stage.clientWidth-24, H=stage.clientHeight-16;
+  const n=grid.children.length||1, ar=604/518;
+  const gap = n>40?6:n>12?10:16;
+  let bestW=0,bestC=1;
+  for(let c=1;c<=n;c++){
+    const r=Math.ceil(n/c);
+    const w=Math.min((W-gap*(c-1))/c, ((H-gap*(r-1))/r)*ar);
+    if(w>bestW){bestW=w;bestC=c}
+  }
+  bestW=Math.max(28,Math.min(bestW, 520));
+  grid.style.setProperty('--gap',gap+'px');
+  grid.style.gridTemplateColumns=`repeat(${bestC}, ${bestW}px)`;
+  grid.style.setProperty('--cw',bestW+'px');
+  for(const el of grid.children){el.classList.toggle('compact',bestW<130)}
+}
+new ResizeObserver(()=>layout()).observe($('#stage'));
+
+function chestEl(){
+  const d=document.createElement('div'); d.className='chest';
+  d.innerHTML='<div class="shadow"></div><div class="rays"></div><div class="glow"></div><div class="inside"></div><div class="body"></div><div class="lid"></div><div class="reward"></div><div class="label"></div>';
+  return d;
+}
+function buildGrid(){
+  const g=$('#grid'); g.innerHTML='';
+  document.querySelectorAll('#stage > .chest.overlay').forEach(e=>e.remove());
+  $('#summary').hidden=true;
+  if(isDom()){
+    $('#cgrid').hidden=true; g.hidden=false;
+    for(let i=0;i<count;i++) g.appendChild(chestEl());
+    layout();
+  }else{
+    g.hidden=true; $('#cgrid').hidden=false;
+    CG.setup(Math.min(count,DRAW_CAP));
+  }
+}
+
+/* ---------- canvas grid for big batches (one canvas, thousands of chests, no lag) ---------- */
+const CG=(()=>{
+  const cv=$('#cgrid'), ctx=cv.getContext('2d');
+  const lid=new Image(), body=new Image(); lid.src='img/lid.webp'; body.src='img/body.webp';
+  const rimg={}; REWARDS.forEach(r=>{const im=new Image(); im.src='img/'+r.img+'.webp'; rimg[r.id]=im;});
+  let n=0, cols=1, rows=1, cw=0, ch=0, dpr=1, chestW=0, chestH=0;
+  let open=new Uint8Array(0), openAt=new Float32Array(0), win=new Map(), hidden=new Set();
+  let sprClosed=null, sprOpen=null, glow={}, raf=0;
+  const ready=Promise.all([lid,body].map(im=>im.decode?im.decode().catch(()=>{}):Promise.resolve()));
+
+  function sprites(){
+    const w=Math.max(4,Math.round(chestW*dpr)), h=Math.max(4,Math.round(chestH*dpr)), lh=h*.5792;
+    const mk=(W,H)=>Object.assign(document.createElement('canvas'),{width:W,height:H});
+    sprClosed=mk(w,h); let c=sprClosed.getContext('2d');
+    c.drawImage(body,0,lh,w,h-lh); c.drawImage(lid,0,0,w,lh);
+    // open: lid tilted back above, golden inside showing
+    const up=Math.round(h*.22);
+    sprOpen=mk(w,h+up); c=sprOpen.getContext('2d');
+    const g=c.createRadialGradient(w/2,up+h*.56,0,w/2,up+h*.56,w*.42);
+    g.addColorStop(0,'#fff6c8');g.addColorStop(.35,'#ffd85a');g.addColorStop(.75,'#8a5206');g.addColorStop(1,'#3b2103');
+    c.fillStyle=g; c.beginPath(); c.ellipse(w/2,up+h*.565,w*.41,h*.1,0,0,Math.PI*2); c.fill();
+    c.drawImage(body,0,up+lh,w,h-lh);
+    c.save(); c.filter='brightness(.85)'; c.drawImage(lid,0,up+h*.5-lh*.62,w,lh*.62); c.restore();
+    sprOpen.up=up;
+    for(const [k,hex] of Object.entries(RHEX)){
+      const s=Math.round(w*1.9), gc=mk(s,s), x=gc.getContext('2d');
+      const rg=x.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+      rg.addColorStop(0,hex+'ee'); rg.addColorStop(.35,hex+'66'); rg.addColorStop(1,hex+'00');
+      x.fillStyle=rg; x.fillRect(0,0,s,s); glow[k]=gc;
+    }
+  }
+  function resize(){
+    if(!n) return;
+    const st=$('#stage'), W=st.clientWidth-24, H=st.clientHeight-16;
+    const ar=1/1.32; // cell w:h (room above for the lid)
+    const f=fitGrid(n,W,H,ar); cols=f.cols; rows=f.rows; cw=Math.max(3,f.w); ch=cw/ar;
+    chestW=cw*.86; chestH=chestW*518/604;
+    dpr=Math.min(devicePixelRatio||1, n>5000?1.25:2);
+    cv.width=Math.round(cols*cw*dpr); cv.height=Math.round(rows*ch*dpr);
+    cv.style.width=cols*cw+'px'; cv.style.height=rows*ch+'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    sprites(); drawAll();
+  }
+  function cellXY(i){ return [ (i%cols)*cw, Math.floor(i/cols)*ch ]; }
+  function chestXY(i){ const [x,y]=cellXY(i); return [x+(cw-chestW)/2, y+ch-chestH-ch*.05]; }
+  function drawChest(i){
+    if(hidden.has(i)) return;
+    const [x,y]=chestXY(i);
+    if(open[i]){ const u=sprOpen.up/dpr; ctx.drawImage(sprOpen,x,y-u,chestW,chestH+u); }
+    else ctx.drawImage(sprClosed,x,y,chestW,chestH);
+  }
+  function drawAll(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    // glows behind winners
+    for(const [i,id] of win){ if(!open[i]||hidden.has(i)) continue;
+      const r=byId[id], g=glow[r.rarity], [x,y]=chestXY(i), s=chestW*1.9;
+      ctx.drawImage(g,x+chestW/2-s/2,y+chestH*.4-s/2,s,s); }
+    for(let i=0;i<n;i++) drawChest(i);
+    // reward icons on winners (when there's room)
+    if(chestW>=18) for(const [i,id] of win){ if(!open[i]||hidden.has(i)) continue;
+      const r=byId[id], im=rimg[id], [x,y]=chestXY(i);
+      const iw=chestW*.5, ih=iw*(r.fit?1:260/210), ix=x+chestW/2-iw/2, iy=y-ih*.35;
+      ctx.save(); ctx.fillStyle=RHEX[r.rarity]; ctx.shadowColor=RHEX[r.rarity]; ctx.shadowBlur=chestW*.12;
+      const b=Math.max(1,chestW*.02); ctx.fillRect(ix-b,iy-b,iw+2*b,ih+2*b); ctx.restore();
+      if(im.complete&&im.naturalWidth){
+        if(r.fit){ ctx.fillStyle='#3a2a10'; ctx.fillRect(ix,iy,iw,ih); const s=Math.min(iw/im.naturalWidth,ih/im.naturalHeight)*.9;
+          ctx.drawImage(im,ix+(iw-im.naturalWidth*s)/2,iy+(ih-im.naturalHeight*s)/2,im.naturalWidth*s,im.naturalHeight*s); }
+        else ctx.drawImage(im,ix,iy,iw,ih);
+      }
+    }
+  }
+  async function setup(cells){
+    cancelAnimationFrame(raf);
+    n=cells; open=new Uint8Array(n); openAt=new Float32Array(n); win=new Map(); hidden=new Set();
+    await ready; resize();
+  }
+  function setWins(map){ win=map; }
+  // opening wave: only redraws the chests that just opened each frame
+  function openAll(skip){
+    return new Promise(res=>{
+      const D=Math.min(1400,500+n*.05), t0=performance.now(), span=cols+rows;
+      for(let i=0;i<n;i++){ const c=i%cols, r=Math.floor(i/cols); openAt[i]=((c+r)/span)*D + Math.random()*120; }
+      const order=[...Array(n).keys()].sort((a,b)=>openAt[a]-openAt[b]);
+      let k=0;
+      const step=()=>{
+        const t=performance.now()-t0;
+        while(k<order.length && openAt[order[k]]<=t){
+          const i=order[k++]; if(skip.has(i)) continue;
+          open[i]=1; const [x,y]=cellXY(i); ctx.clearRect(x,y,cw,ch); drawChest(i);
+        }
+        if(k<order.length) raf=requestAnimationFrame(step);
+        else { drawAll(); res(); }
+      };
+      raf=requestAnimationFrame(step);
+    });
+  }
+  function hide(i){ hidden.add(i); open[i]=1; drawAll(); }
+  function cellRect(i){ // in #stage coordinates (untransformed)
+    const st=$('#stage').getBoundingClientRect(), c=cv.getBoundingClientRect(), [x,y]=chestXY(i);
+    return {left:c.left-st.left+x, top:c.top-st.top+y, w:chestW};
+  }
+  return {setup,resize,openAll,setWins,hide,cellRect,get n(){return n}};
+})();
+
+/* ---------- quantity controls ---------- */
+const MAX = 100_000_000, PRESETS = [1,10,100,1000,10000,100000];
+const short=n=>n>=1e6?(n/1e6)+'M':n>=1e3?(n/1e3)+'K':String(n);
+function stepFor(n){ return n<10?1:n<100?5:5*10**(Math.floor(Math.log10(n))-1); }
+function setCount(n){
+  if(busy) return;
+  const prev=count;
+  count=Math.min(MAX,Math.max(1,Math.round(n)||1)); store.set('pc_count',count);
+  if(count>DOM_MAX && prev<=DOM_MAX) toast('Heads up: over 100 chests may cause lag on slower devices.');
+  updateControls(); buildGrid();
+}
+function updateControls(){
+  const qi=$('#qtyIn'); if(document.activeElement!==qi) qi.value=fmt(count);
+  $('#qtyUnit').textContent=count===1?'CHEST':'CHESTS';
+  $('#openSub').textContent=`${fmt(count)} ${count===1?'CHEST':'CHESTS'}`;
+  $('#minus').disabled=count<=1; $('#plus').disabled=count>=MAX; qi.disabled=false;
+  document.querySelectorAll('#presets button').forEach(b=>{b.disabled=false;b.classList.toggle('on',+b.dataset.n===count)});
+  const w=$('#lagWarn');
+  if(count>DOM_MAX){
+    w.hidden=false;
+    w.innerHTML=`⚠ Opening more than 100 chests at once <b>may cause lag</b> on slower devices. Big batches use a faster view to keep things smooth.`
+      + (count>DRAW_CAP?` Showing ${fmt(DRAW_CAP)} chests on screen, but all ${fmt(count)} are rolled.`:'');
+  } else w.hidden=true;
+}
+function parseCount(str){
+  const m=String(str).trim().toLowerCase().replace(/[, _]/g,'').match(/^(\d+(?:\.\d+)?)([km]?)$/);
+  if(!m) return null;
+  return Math.round(parseFloat(m[1])*(m[2]==='k'?1e3:m[2]==='m'?1e6:1));
+}
+$('#presets').innerHTML=PRESETS.map(n=>`<button data-n="${n}">×${short(n)}</button>`).join('');
+$('#presets').onclick=e=>{const b=e.target.closest('button'); if(b) setCount(+b.dataset.n)};
+$('#minus').onclick=()=>setCount(count-stepFor(count-1));
+$('#plus').onclick=()=>setCount(count+stepFor(count));
+$('#qtyIn').addEventListener('change',e=>{const v=parseCount(e.target.value); if(v==null){updateControls();return} setCount(v)});
+$('#qtyIn').addEventListener('keydown',e=>{if(e.key==='Enter'){e.target.blur()} e.stopPropagation()});
+$('#qtyIn').addEventListener('focus',e=>e.target.select());
+function lockControls(v){if(v) document.querySelectorAll('.qty button,#presets button,#qtyIn').forEach(b=>b.disabled=true); else updateControls()}
+
+/* ---------- opening ---------- */
+function cardHTML(r){
+  return `<div class="card ${r.fit?'fit':''}"><img src="img/${r.img}.webp" alt=""></div>`;
+}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+$('#openBtn').onclick=openChests;
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&!e.repeat&&e.target.tagName!=='INPUT'&&!document.querySelector('.drawer.on,.bigwin.on')){e.preventDefault();openChests()}});
+
+function showSummary(wins, total){
+  const by={}; for(const w of wins) by[w.id]=(by[w.id]||0)+1;
+  const chips=REWARDS.filter(r=>by[r.id]).map(r=>`<span class="chip ${r.fit?'fit':''}" style="--rc:${RHEX[r.rarity]}"><img src="img/${r.img}.webp" alt="">${r.name} <b>×${fmt(by[r.id])}</b></span>`).join('');
+  const el=$('#summary');
+  el.innerHTML=`<span class="tot">${fmt(total)} opened</span>`+(chips||'<span class="none">No rewards this time</span>');
+  el.hidden=false; el.style.animation='none'; void el.offsetWidth; el.style.animation='';
+}
+
+async function openChests(){
+  if(busy) return;
+  busy=true; lockControls(true);
+  const btn=$('#openBtn'), dom=isDom();
+  btn.disabled=true; btn.classList.remove('recharging'); btn.classList.add('cool');
+  const t0=performance.now();
+
+  // fresh, closed chests
+  buildGrid();
+  const sub=$('#openSub');
+  if(count>2_000_000) sub.textContent='ROLLING…';
+  const winList=await rollWins(count, f=>{sub.textContent=`ROLLING ${Math.round(f*100)}%`});
+  updateControls(); lockControls(true);
+  await sleep(60);
+
+  const stagger=dom?Math.min(70,1400/count):0;
+  const cool=dom?1900+stagger*count:2600;
+  btn.style.setProperty('--cool',cool+'ms');
+  void btn.offsetWidth; btn.classList.add('recharging'); btn.classList.remove('cool');
+
+  // bookkeeping (works for any number of wins)
+  opened+=count; store.set('pc_opened',opened);
+  for(const w of winList){
+    inv[w.id]=(inv[w.id]||0)+1;
+    if(!best||byId[w.id].odds>byId[best].odds) best=w.id;
+  }
+  store.set('pc_inv',inv); store.set('pc_best',best);
+
+  const tokenWins=winList.filter(w=>byId[w.id].tokens);
+  let tokenEl=null, openedAt=0;
+
+  if(dom){
+    const chests=[...$('#grid').children], at=new Map(winList.map(w=>[w.i,w.id]));
+    chests.forEach((el,i)=>{
+      const id=at.get(i), r=id&&byId[id];
+      const rw=el.querySelector('.reward'), lb=el.querySelector('.label');
+      if(r && r.tokens){
+        el.classList.add('win'); el.style.setProperty('--rc',RCOL[r.rarity]);
+        lb.innerHTML=`<span class="n">${r.name}</span><span class="t">+${r.tokens} Tokens</span><span class="odds">1 in ${fmt(r.odds)}</span>`;
+        if(!tokenEl) tokenEl=el; else setTimeout(()=>el.classList.add('open','golden'),i*stagger);
+        return; // the first token chest waits for its cinematic
+      }
+      if(r){
+        el.classList.add('win'); el.style.setProperty('--rc',RCOL[r.rarity]);
+        rw.innerHTML=cardHTML(r);
+        lb.innerHTML=`<span class="n">${r.name}</span><span class="t">${r.type}</span><span class="odds">1 in ${fmt(r.odds)}</span>`;
+      }else{
+        el.classList.add('empty');
+        lb.innerHTML='<span class="n">Empty</span>';
+      }
+      setTimeout(()=>{
+        el.classList.add('shake');
+        setTimeout(()=>{el.classList.remove('shake');el.classList.add('open')},520);
+      }, i*stagger);
+    });
+    openedAt=(count-1)*stagger+620;
+    await sleep(openedAt+500);
+  }else{
+    // spread wins over the drawn cells
+    const n=CG.n, map=new Map(); let tokenCell=-1;
+    const ordered=winList.length>n?[...winList].sort((a,b)=>byId[b.id].odds-byId[a.id].odds):winList; // rarest first
+    for(const w of ordered){
+      if(map.size>=n) break;
+      let c=Math.floor(w.i*n/count); let tries=0;
+      while(map.has(c) && tries<n){ c=(c+1)%n; tries++; }
+      if(tries>=n) break;
+      map.set(c,w.id);
+      if(tokenCell<0 && byId[w.id].tokens) tokenCell=c;
+    }
+    CG.setWins(map);
+    showSummary(winList,count);
+    await CG.openAll(new Set(tokenCell>=0?[tokenCell]:[]));
+    if(tokenCell>=0){
+      // put a real chest over that spot so it can do the full cinematic
+      const r=CG.cellRect(tokenCell), el=chestEl(), tr=byId[map.get(tokenCell)];
+      el.classList.add('overlay','win'); el.style.setProperty('--rc',RCOL[tr.rarity]);
+      el.style.left=r.left+'px'; el.style.top=r.top+'px'; el.style.setProperty('--cw',r.w+'px');
+      el.querySelector('.label').innerHTML=`<span class="n">${tr.name}</span><span class="t">+${fmt(tokenWins.length*tr.tokens)} Tokens</span>`;
+      if(r.w<130) el.classList.add('compact');
+      $('#stage').appendChild(el); CG.hide(tokenCell); tokenEl=el;
+      await sleep(150);
+    }
+    openedAt=performance.now()-t0;
+  }
+
+  // Pirate Token: zoom in, rumble, go gold, burst, play the animation
+  if(tokenWins.length){
+    const newTotal = tokens+tokenWins.reduce((s,w)=>s+byId[w.id].tokens,0);
+    await tokenScene(tokenEl, newTotal);
+    pushScore();
+  }
+  renderBadge();
+
+  // big celebration for the rarest non-token pull in this batch
+  const top=winList.map(w=>byId[w.id]).filter(r=>!r.tokens).sort((a,b)=>b.odds-a.odds)[0];
+  if(top && top.odds>=7000) showBigWin(top);
+
+  await sleep(Math.max(0,cool-(performance.now()-t0)));
+  btn.disabled=false; busy=false; lockControls(false);
+}
+
+function flyToken(fromEl){
+  const a=fromEl.getBoundingClientRect(), b=$('#tokenBox img').getBoundingClientRect();
+  const img=document.createElement('img'); img.src='img/token.webp'; img.className='fly';
+  img.style.left=(a.left+a.width/2-28)+'px'; img.style.top=(a.top+a.height*.3-28)+'px';
+  document.body.appendChild(img);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    img.style.transform=`translate(${b.left+b.width/2-(a.left+a.width/2)}px,${b.top+b.height/2-(a.top+a.height*.3)}px) scale(.6)`;
+    img.style.opacity='.9';
+  }));
+  setTimeout(()=>img.remove(),950);
+}
+
+function showBigWin(r){
+  const box=$('#bigwinBox'), bw=$('#bigwin');
+  bw.style.setProperty('--rc',RCOL[r.rarity]);
+  const title = r.rarity==='mythic'?'MYTHIC PULL!':'LEGENDARY!';
+  box.innerHTML=`<h3 class="display">${title}</h3><div class="card ${r.fit?'fit':''}"><img src="img/${r.img}.webp" alt=""></div>
+    <p>${r.name}<span>${r.type} · 1 in ${fmt(r.odds)}</span></p><button id="bwClose">Collect</button>`;
+  bw.classList.add('on'); confetti();
+  $('#bwClose').onclick=()=>bw.classList.remove('on');
+}
+$('#bigwin').onclick=e=>{if(e.target.id==='bigwin')e.currentTarget.classList.remove('on')};
+function confetti(){
+  const cols=['#ffcf3d','#fff1a8','#c35cff','#3fa9ff','#ff8a2a','#5fd35a'];
+  for(let i=0;i<120;i++){
+    const c=document.createElement('div'); c.className='confetti';
+    c.style.left=Math.random()*100+'vw'; c.style.background=cols[i%cols.length];
+    c.style.animationDuration=(2+Math.random()*2.5)+'s'; c.style.animationDelay=Math.random()*.6+'s';
+    document.body.appendChild(c); setTimeout(()=>c.remove(),5200);
+  }
+}
+
+
+/* ---------- Pirate Token cinematic ---------- */
+const FX=(()=>{
+  const v=$('#fxVid'), cv=$('#fx');
+  let gl=null, ctx2d=null, tex=null, raf=0, primed=false;
+  function initGL(){
+    gl=cv.getContext('webgl',{premultipliedAlpha:true,alpha:true});
+    if(!gl){ ctx2d=cv.getContext('2d',{willReadFrequently:true}); return; }
+    const vs=`attribute vec2 p;varying vec2 uv;void main(){uv=vec2((p.x+1.)*.5,(1.-p.y)*.5);gl_Position=vec4(p,0,1);}`;
+    const fs=`precision mediump float;varying vec2 uv;uniform sampler2D t;
+      void main(){vec3 c=texture2D(t,vec2(uv.x,uv.y*.5)).rgb;float a=texture2D(t,vec2(uv.x,.5+uv.y*.5)).r;
+      gl_FragColor=vec4(min(c,vec3(a)),a);}`;
+    const sh=(type,src)=>{const o=gl.createShader(type);gl.shaderSource(o,src);gl.compileShader(o);return o};
+    const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));
+    gl.linkProgram(pr);gl.useProgram(pr);
+    const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    const loc=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    tex=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,tex);
+    for(const [k,val] of [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D,k,val);
+  }
+  function size(){
+    const dpr=Math.min(devicePixelRatio||1,2), w=Math.round(innerWidth*dpr), h=Math.round(innerWidth*9/16*dpr);
+    if(gl){ if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h)} }
+    else { cv.width=640; cv.height=360; }
+  }
+  function draw(){
+    if(v.readyState>=2){
+      if(gl){ gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,v); gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); }
+      else if(ctx2d){ // slower fallback without WebGL
+        const off=draw.off||(draw.off=Object.assign(document.createElement('canvas'),{width:640,height:720}));
+        const oc=off.getContext('2d',{willReadFrequently:true}); oc.drawImage(v,0,0,640,720);
+        const top=oc.getImageData(0,0,640,360), bot=oc.getImageData(0,360,640,360);
+        for(let i=0;i<top.data.length;i+=4){const al=bot.data[i]; top.data[i+3]=al;
+          if(al){const k=255/al; top.data[i]=Math.min(255,top.data[i]*k); top.data[i+1]=Math.min(255,top.data[i+1]*k); top.data[i+2]=Math.min(255,top.data[i+2]*k);}}
+        ctx2d.putImageData(top,0,0);
+      }
+    }
+    raf=requestAnimationFrame(draw);
+  }
+  // Safari only lets sound play if the video was started from a tap — unlock it on the first Open press
+  function prime(){
+    if(primed) return; primed=true;
+    v.muted=true; const p=v.play(); if(p) p.then(()=>{v.pause();v.currentTime=0;v.muted=false}).catch(()=>{v.muted=false});
+  }
+  function play(){
+    return new Promise(resolve=>{
+      if(!gl&&!ctx2d) initGL();
+      size(); addEventListener('resize',size);
+      const bar=$('#fxbar'), snd=$('#fxSound');
+      let done=false;
+      const finish=()=>{ if(done) return; done=true;
+        cv.classList.remove('on'); bar.classList.remove('on'); snd.hidden=true;
+        setTimeout(()=>{ cancelAnimationFrame(raf); v.pause(); removeEventListener('resize',size); resolve(); },450); };
+      v.onended=()=>setTimeout(finish,600);
+      $('#fxSkip').onclick=finish;
+      snd.onclick=()=>{ v.muted=false; snd.hidden=true; };
+      v.currentTime=0; v.muted=false;
+      const p=v.play();
+      if(p) p.catch(()=>{ v.muted=true; snd.hidden=false; v.play().catch(()=>finish()); });
+      cancelAnimationFrame(raf); draw();
+      cv.classList.add('on'); bar.classList.add('on');
+      setTimeout(finish,14000); // safety net
+    });
+  }
+  return {play,prime};
+})();
+$('#openBtn').addEventListener('pointerdown',()=>FX.prime());
+
+function zoomTo(base, el, cx, cy, targetH){
+  const st=$('#stage');
+  const k=Math.max(1,Math.min(targetH/base.c.height, innerWidth*.8/base.c.width));
+  const px=base.c.left+base.c.width/2, py=base.c.top+base.c.height/2;
+  const tx=cx-base.s.left-(px-base.s.left)*k, ty=cy-base.s.top-(py-base.s.top)*k;
+  st.classList.add('zooming');
+  st.style.transform=`translate(${tx}px,${ty}px) scale(${k})`;
+  const v=$('#vignette'); v.style.setProperty('--vx',cx+'px'); v.style.setProperty('--vy',cy+'px');
+  $('#flash').style.setProperty('--vx',cx+'px'); $('#flash').style.setProperty('--vy',cy+'px');
+}
+function unzoom(){const st=$('#stage'); st.style.transform=''; setTimeout(()=>st.classList.remove('zooming'),800)}
+
+async function tokenScene(el, newTotal){
+  closeDrawer();
+  let base={c:el.getBoundingClientRect(), s:$('#stage').getBoundingClientRect()};
+  let restore=null;
+  if(el.classList.contains('overlay')){
+    // tiny chest from the big-batch view: zoom the screen a little and grow the chest the rest of the way
+    const targetW=innerHeight*.5*604/518, kStage=Math.min(4, targetW/base.c.width);
+    const w0=base.c.width, newW=targetW/kStage, l0=parseFloat(el.style.left), t0=parseFloat(el.style.top);
+    const cx=l0+w0/2, cy=t0+base.c.height/2, newH=newW*518/604;
+    restore={w:w0,l:l0,t:t0};
+    el.classList.remove('compact');
+    el.style.setProperty('--cw',newW+'px'); el.style.left=(cx-newW/2)+'px'; el.style.top=(cy-newH/2)+'px';
+    base={s:base.s, c:{left:base.s.left+cx-newW/2, top:base.s.top+cy-newH/2, width:newW, height:newH}};
+  }
+  el.insertAdjacentHTML('afterbegin','<div class="halo back"><div class="ring"><i></i></div></div><div class="halo back tall"><div class="ring"></div></div>');
+  el.insertAdjacentHTML('beforeend','<div class="halo front"><div class="ring"><i></i></div></div><div class="halo front tall"><div class="ring"></div></div>');
+  el.classList.add('focus');
+
+  // 1. quick zoom into the chest
+  zoomTo(base, el, innerWidth/2, innerHeight*.5, innerHeight*.5);
+  $('#vignette').classList.add('on');
+  await sleep(800);
+
+  // 2. rumble — something is moving in there
+  el.classList.add('rumble');
+  await sleep(2800);
+
+  // 3. turns golden, rings circle it
+  el.classList.remove('rumble'); el.classList.add('golden');
+  await sleep(2200);
+
+  // 4. burst open
+  const f=$('#flash'); f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
+  await sleep(110);
+  el.classList.add('open');
+  tokens=newTotal; store.set('pc_tokens',tokens); renderTokens(true);
+  await sleep(450);
+
+  // 5. the Pirate Shop Access animation plays across the top of the screen
+  zoomTo(base, el, innerWidth/2, innerHeight*.64, innerHeight*.46);
+  await sleep(250);
+  await FX.play();
+
+  // 6. back to the grid
+  $('#vignette').classList.remove('on');
+  unzoom();
+  if(restore){ el.style.setProperty('--cw',restore.w+'px'); el.style.left=restore.l+'px'; el.style.top=restore.t+'px'; if(restore.w<130) el.classList.add('compact'); }
+  await sleep(800);
+  el.classList.remove('focus');
+}
+
+/* ---------- header ---------- */
+function renderTokens(bump){
+  $('#tokenCount').textContent=fmt(tokens);
+  if(bump){const t=$('#tokenBox'); t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump')}
+}
+function foundCount(){return REWARDS.filter(r=>!r.tokens&&inv[r.id]).length}
+function renderBadge(){$('#invBadge').textContent=`${foundCount()}/${REWARDS.filter(r=>!r.tokens).length}`}
+
+/* ---------- drawer ---------- */
+let tab='inv';
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDrawer(b.dataset.open));
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>openDrawer(b.dataset.tab));
+$('#scrim').onclick=$('#closeDrawer').onclick=closeDrawer;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();$('#bigwin').classList.remove('on')}});
+function closeDrawer(){$('#drawer').classList.remove('on');$('#scrim').classList.remove('on');$('#drawer').setAttribute('aria-hidden','true')}
+function openDrawer(t){
+  tab=t; $('#drawer').classList.add('on'); $('#scrim').classList.add('on'); $('#drawer').setAttribute('aria-hidden','false');
+  document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+  $('#drawerTitle').textContent={inv:'Inventory',lb:'Leaderboard',odds:'Drop Odds'}[t];
+  ({inv:renderInv,lb:renderLb,odds:renderOdds})[t]();
+}
+function renderInv(){
+  const total=REWARDS.filter(r=>!r.tokens).length;
+  $('#drawerBody').innerHTML=`
+    <div class="statrow">
+      <div class="stat"><b>${fmt(opened)}</b><span>Opened</span></div>
+      <div class="stat"><b>${fmt(Object.values(inv).reduce((a,b)=>a+b,0))}</b><span>Rewards</span></div>
+      <div class="stat"><b>${fmt(tokens)}</b><span>Tokens</span></div>
+    </div>
+    <div class="found"><b class="display">${foundCount()}/${total} found</b><span class="muted">${best?'Best: '+byId[best].name:'Nothing yet — keep opening!'}</span></div>
+    <div class="inv">${REWARDS.map(r=>{
+      const n=inv[r.id]||0;
+      return `<div class="item ${n?'':'locked'}" style="--rc:${RCOL[r.rarity]}">
+        <div class="art ${r.fit?'fit':''}"><img src="img/${r.img}.webp" alt="" loading="lazy"></div>
+        ${n?`<span class="count">×${fmt(n)}</span>`:''}
+        <div class="meta"><b>${r.name}</b><span>${r.type}</span></div></div>`}).join('')}
+    </div>`;
+}
+async function renderLb(){
+  const body=$('#drawerBody');
+  body.innerHTML='<p class="muted">Loading…</p>';
+  try{
+    let board=await fetchBoard(), local=false;
+    if(!board){ local=true; board=tokens>0?[{id:playerId,name:myName,tokens}]:[]; }
+    const top=board.map(p=>({...p,you:p.id===playerId}));
+    const idx=top.findIndex(p=>p.you);
+    const d={top, me:{name:myName,tokens,rank:idx>=0?idx+1:null}};
+    if(tab!=='lb') return;
+    const rows=d.top.map((p,i)=>`<li class="${p.you?'you':''}"><span class="rk">${i+1}</span>
+      <span class="nm">${p.name}${p.you?'<em>YOU</em>':''}</span>
+      <span class="tk"><img src="img/token.webp" alt="">${fmt(p.tokens)}</span></li>`).join('');
+    body.innerHTML = (rows?`<ol class="lb">${rows}</ol>`:
+      `<div class="empty-lb"><img src="img/token.webp" alt=""><p><b>No one has found a Pirate Token yet.</b></p><p class="muted">It's a 1 in 137,500 drop — be the first on the board.</p></div>`)
+      + `<div class="me">You are <b>${d.me.name}</b> · ${fmt(d.me.tokens)} tokens${d.me.rank?` · rank #${d.me.rank}`:''}</div>
+         <p class="muted" style="margin-top:10px">${local?"The shared leaderboard isn't connected yet, so only your own score is shown.":"Everyone is anonymous. Players appear here once they've found at least one Pirate Shop token."}</p>`;
+  }catch{
+    body.innerHTML='<p class="muted">The leaderboard is unavailable right now. Try again in a moment.</p>';
+  }
+}
+function renderOdds(){
+  const any=REWARDS.reduce((s,r)=>s+1/r.odds,0);
+  $('#drawerBody').innerHTML=`<table class="odds">${REWARDS.map(r=>`<tr style="--rc:${RCOL[r.rarity]}">
+      <td><span class="sw"></span><span><b>${r.name}</b><br><span class="muted">${r.type}</span></span></td>
+      <td>1 in ${fmt(r.odds)}</td></tr>`).join('')}
+      <tr><td><span class="sw" style="background:#555"></span><b>Any reward</b></td><td>1 in ${fmt(Math.round(1/any))}</td></tr></table>
+    <p class="muted" style="margin-top:12px">Every chest is rolled independently.</p>`;
+}
+
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)}
+
+/* ---------- boot ---------- */
+renderTokens(); renderBadge(); setCount(count);
+nameFor(playerId).then(n=>{myName=n;store.set('pc_name',n)}).catch(()=>{});
+REWARDS.forEach(r=>{const i=new Image();i.src='img/'+r.img+'.webp'});
+</script>
+</body>
+</html>
