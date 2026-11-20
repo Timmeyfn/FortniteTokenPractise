@@ -8,7 +8,9 @@ Open Pirate Chests in your browser: any amount, from 1 to a quadrillion at once.
 - Full animated chest opening for up to 100 chests. Bigger batches use a fast view, and anything over 2 million is counted instantly with exact odds maths.
 - ∞ Auto-open mode.
 - Pirate Token cinematic: zoom in, rumble, gold rings, then the Pirate Shop Access animation.
-- Inventory and odds, plus a 🍀 luck meter for each batch.
+- Fortnite lobby look: item-shop rarity cards, PLAY-style buttons and lobby themes.
+- Levels and XP (80,000 XP per level, no cap), Daily Quests, and a Pirate Shop for spending tokens on chest styles and lobby themes.
+- Locker and odds, a 🍀 luck meter for each batch, and sound effects.
 - Live anonymous leaderboard and recent big pulls, with no setup needed.
 - An update log that pops up automatically when there's a new version.
 

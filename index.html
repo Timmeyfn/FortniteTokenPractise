@@ -7,13 +7,13 @@
 <link rel="icon" href="img/token.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#1c1d21; --panel:#26272d; --panel2:#2f3037; --line:#3a3b44;
-  --text:#f3f1ea; --muted:#9a98a6;
+  --bg:#0a1a52; --panel:#0d1a4c; --panel2:#152a6e; --line:#2b4699;
+  --text:#ffffff; --muted:#a9b9e8; --fy:#fff04a;
   --gold1:#fff1a8; --gold2:#ffcf3d; --gold3:#d99a12; --gold4:#8a5a06;
-  --r-mythic:#ffcf3d; --r-legend:#ff8a2a; --r-epic:#c35cff; --r-rare:#3fa9ff; --r-unc:#5fd35a;
+  --r-mythic:#ffc93c; --r-legend:#e98d4b; --r-epic:#c359ff; --r-rare:#2cc3ff; --r-unc:#69bb1e;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
@@ -29,7 +29,7 @@ body::before{ /* faint floor grid like the reference render */
   background-size:70px 70px;transform:perspective(500px) rotateX(62deg);transform-origin:top;
   mask-image:linear-gradient(to bottom,transparent,#000 30%,#000 70%,transparent);
 }
-.display{font-family:"Luckiest Guy",Impact,sans-serif;letter-spacing:.02em;font-weight:400}
+.display{font-family:"Anton",Impact,sans-serif;letter-spacing:.02em;font-weight:400}
 
 /* ---------- Header ---------- */
 header{
@@ -53,7 +53,7 @@ header{
   box-shadow:0 0 0 1px #000 inset,0 0 18px #ffcf3d33;
 }
 .tokens img{width:34px;height:34px;filter:drop-shadow(0 2px 3px #000)}
-.tokens b{font-family:"Luckiest Guy",Impact,sans-serif;font-size:24px;line-height:1;color:var(--gold1);
+.tokens b{font-family:"Anton",Impact,sans-serif;font-size:24px;line-height:1;color:var(--gold1);
   text-shadow:0 2px 0 #000;min-width:1.2ch;text-align:center}
 .tokens small{font-size:11px;color:#e6c76c;font-weight:700;text-transform:uppercase;letter-spacing:.06em;line-height:1.1}
 .tokens.bump{animation:bump .6s}
@@ -110,7 +110,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 .label{position:absolute;left:50%;bottom:3%;translate:-50% 0;z-index:5;width:max-content;max-width:118%;
   text-align:center;opacity:0;transform:translateY(30%);pointer-events:none}
 .chest.open .label{opacity:1;transform:none;transition:all .35s .45s}
-.label .n{display:block;font-family:"Luckiest Guy",Impact,sans-serif;font-size:max(10px,calc(var(--cw)*.075));
+.label .n{display:block;font-family:"Anton",Impact,sans-serif;font-size:max(10px,calc(var(--cw)*.075));
   line-height:1.05;color:#fff;text-shadow:0 2px 0 #000,0 0 6px #000}
 .label .t{display:inline-block;margin-top:2px;font-size:max(8px,calc(var(--cw)*.045));font-weight:800;color:#1a1200;
   background:var(--rc);border-radius:999px;padding:.1em .7em;box-shadow:0 1px 0 #000}
@@ -127,7 +127,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
   font:800 22px Inter,sans-serif;cursor:pointer}
 .qty button:hover:not(:disabled){background:#40414a}
 .qty button:disabled{opacity:.35;cursor:default}
-.qty output,.unused{min-width:62px;text-align:center;font-family:"Luckiest Guy",Impact,sans-serif;font-size:24px;line-height:1}
+.qty output,.unused{min-width:62px;text-align:center;font-family:"Anton",Impact,sans-serif;font-size:24px;line-height:1}
 .qty output small{display:block;font:700 10px Inter,sans-serif;color:var(--muted);letter-spacing:.08em}
 .presets{display:flex;gap:6px}
 .presets button{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;
@@ -137,7 +137,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 
 #openBtn{
   position:relative;min-width:230px;height:62px;border-radius:16px;cursor:pointer;
-  font-family:"Luckiest Guy",Impact,sans-serif;font-size:28px;letter-spacing:.04em;color:#3a2200;
+  font-family:"Anton",Impact,sans-serif;font-size:28px;letter-spacing:.04em;color:#3a2200;
   text-shadow:0 1px 0 #fff6;
   border:3px solid #5a3700;
   background:linear-gradient(180deg,var(--gold1) 0%,var(--gold2) 38%,var(--gold3) 78%,#b07506 100%);
@@ -178,7 +178,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 .item .art.fit img{object-fit:contain;padding:12%}
 .item.locked .art{filter:grayscale(1) brightness(.35)}
 .item.locked .art::after{content:"?";position:absolute;inset:0;display:grid;place-items:center;
-  font:400 54px "Luckiest Guy",Impact;color:#fff5}
+  font:400 54px "Anton",Impact;color:#fff5}
 .item .meta{padding:9px 10px 10px;border-top:3px solid var(--rc)}
 .item .meta b{display:block;font-size:14px;line-height:1.2}
 .item .meta span{font-size:12px;color:var(--muted)}
@@ -186,17 +186,17 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
   font:800 13px Inter,sans-serif;border-radius:999px;padding:2px 9px}
 .statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px;text-align:center}
-.stat b{display:block;font:400 22px "Luckiest Guy",Impact}
+.stat b{display:block;font:400 22px "Anton",Impact}
 .stat span{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 
 .lb{list-style:none;display:flex;flex-direction:column;gap:6px}
 .lb li{display:flex;align-items:center;gap:12px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .lb li.you{border-color:var(--gold2);box-shadow:0 0 0 1px var(--gold2) inset}
-.lb .rk{width:34px;font:400 20px "Luckiest Guy",Impact;color:var(--muted);text-align:center}
+.lb .rk{width:34px;font:400 20px "Anton",Impact;color:var(--muted);text-align:center}
 .lb li:nth-child(1) .rk{color:#ffd54a}.lb li:nth-child(2) .rk{color:#d6d9e0}.lb li:nth-child(3) .rk{color:#e09b5a}
 .lb .nm{flex:1;font-weight:700}
 .lb .nm em{font-style:normal;font-size:11px;background:var(--gold2);color:#2b1a00;border-radius:999px;padding:1px 7px;margin-left:6px}
-.lb .tk{display:flex;align-items:center;gap:6px;font:400 20px "Luckiest Guy",Impact;color:var(--gold1)}
+.lb .tk{display:flex;align-items:center;gap:6px;font:400 20px "Anton",Impact;color:var(--gold1)}
 .lb .tk img{width:24px;height:24px}
 .me{margin-top:14px;padding:12px;border-radius:10px;background:#ffcf3d14;border:1px dashed var(--gold3);font-size:14px}
 .empty-lb{text-align:center;padding:30px 10px;color:var(--muted)}
@@ -222,7 +222,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 .bigwin p{font-weight:800;font-size:18px}
 .bigwin p span{color:var(--muted);font-weight:700;font-size:14px;display:block;margin-top:4px}
 .bigwin button{margin-top:18px;background:var(--gold2);border:0;border-radius:12px;padding:12px 28px;
-  font:400 20px "Luckiest Guy",Impact;color:#2b1a00;cursor:pointer}
+  font:400 20px "Anton",Impact;color:#2b1a00;cursor:pointer}
 .fly{position:fixed;z-index:40;width:56px;height:56px;pointer-events:none;
   transition:transform .9s cubic-bezier(.5,-0.3,.6,1),opacity .9s;filter:drop-shadow(0 0 10px #ffcf3d)}
 .confetti{position:fixed;top:-12px;width:9px;height:14px;z-index:31;pointer-events:none;animation:fall linear forwards}
@@ -317,7 +317,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 .summary .none{font:700 13px Inter,sans-serif;color:var(--muted);padding:2px 8px}
 .qtyin{display:flex;flex-direction:column;align-items:center;min-width:86px}
 .qtyin input{width:100%;background:transparent;border:0;outline:0;color:#fff;text-align:center;
-  font-family:"Luckiest Guy",Impact,sans-serif;font-size:24px;line-height:1;padding:0;border-bottom:1px dashed transparent}
+  font-family:"Anton",Impact,sans-serif;font-size:24px;line-height:1;padding:0;border-bottom:1px dashed transparent}
 .qtyin input:hover,.qtyin input:focus{border-bottom-color:#ffffff40}
 .qtyin small{font:700 10px Inter,sans-serif;color:var(--muted);letter-spacing:.08em}
 .lagwarn{flex-basis:100%;text-align:center;font:700 12.5px Inter,sans-serif;color:#ffcf7a;margin-top:-4px}
@@ -326,7 +326,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 /* ---------- v2: auto, updates, live board ---------- */
 .openwrap{display:flex;gap:8px;align-items:stretch}
 #autoBtn{width:64px;border-radius:16px;border:3px solid #3a3b44;background:var(--panel2);color:var(--muted);cursor:pointer;
-  font:400 28px/1 "Luckiest Guy",Impact,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  font:400 28px/1 "Anton",Impact,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
   box-shadow:0 5px 0 #15161a;transition:all .2s}
 #autoBtn span{font:800 10px Inter,sans-serif;letter-spacing:.12em}
 #autoBtn:hover{color:#fff;border-color:#555}
@@ -350,7 +350,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 .uver ul{margin:8px 0 0 0;padding-left:18px;color:#d9d6e3;font-size:14px;line-height:1.55}
 .uver li b{color:#fff}
 .ufoot{position:sticky;bottom:0;padding:14px 22px;background:var(--panel);border-top:1px solid var(--line);display:flex;justify-content:flex-end}
-.ufoot button{background:var(--gold2);border:0;border-radius:12px;padding:10px 24px;font:400 18px "Luckiest Guy",Impact;color:#2b1a00;cursor:pointer}
+.ufoot button{background:var(--gold2);border:0;border-radius:12px;padding:10px 24px;font:400 18px "Anton",Impact;color:#2b1a00;cursor:pointer}
 .summary .luck{font:800 12px Inter,sans-serif;padding:4px 10px;border-radius:999px;background:#ffffff12;color:#fff}
 .summary .luck.hi{background:#5fd35a26;color:#8ef08a}.summary .luck.lo{background:#ff4d5e22;color:#ff9aa4}
 .lb .ch{font-size:12px;color:var(--muted);font-weight:700;white-space:nowrap}
@@ -374,16 +374,165 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms!important}
 }
+
+/* ================= v2.1 — Fortnite lobby look ================= */
+.display{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;letter-spacing:.01em}
+body{background:radial-gradient(ellipse 80% 70% at 50% 42%,#3d8bff 0%,#2058d8 30%,#123194 58%,#08154d 82%,#050c30 100%)}
+body::before{background-image:linear-gradient(#bcd6ff1a 1px,transparent 1px),linear-gradient(90deg,#bcd6ff1a 1px,transparent 1px)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(104deg,transparent 0 140px,#ffffff07 140px 230px,transparent 230px 420px);
+  mask-image:radial-gradient(ellipse at 50% 30%,#000,transparent 75%)}
+body[data-theme=sunset]{background:radial-gradient(ellipse 80% 70% at 50% 42%,#ffb05c 0%,#ff6a5c 30%,#b8336f 60%,#3a0f45 85%,#1a0626 100%)}
+body[data-theme=toxic]{background:radial-gradient(ellipse 80% 70% at 50% 42%,#b6ff5c 0%,#4fd13a 28%,#1d7a3a 58%,#0a3320 85%,#04170e 100%)}
+body[data-theme=void]{background:radial-gradient(ellipse 80% 70% at 50% 42%,#b06bff 0%,#5a1fd1 28%,#260b6b 58%,#0d0426 85%,#04010d 100%)}
+body[data-theme=golden]{background:radial-gradient(ellipse 80% 70% at 50% 42%,#fff5b0 0%,#ffd23d 26%,#d48a0c 55%,#6b3a02 82%,#2a1500 100%)}
+header{background:linear-gradient(180deg,#040b2ee6,#040b2e00);gap:10px;flex-wrap:nowrap}
+.brand{font-family:"Anton",Impact,sans-serif;font-size:clamp(24px,3vw,38px);transform:skew(-7deg);text-shadow:0 3px 0 #000,0 0 22px #0006;white-space:nowrap}
+.brand span{color:var(--fy)}
+.nav{display:flex;gap:4px;margin-left:12px}
+.navbtn{font-family:"Anton",Impact,sans-serif;text-transform:uppercase;font-size:17px;letter-spacing:.03em;font-weight:400;
+  background:transparent;border:0;border-radius:4px;color:#d3defc;padding:8px 12px;transform:skew(-8deg);position:relative}
+.navbtn:hover{background:#ffffff14;color:#fff}
+.navbtn::after{content:"";position:absolute;left:10px;right:10px;bottom:2px;height:3px;background:var(--fy);transform:scaleX(0);transition:transform .2s}
+.navbtn:hover::after{transform:scaleX(1)}
+.navbtn .badge{background:var(--fy);color:#111;font:900 11px Inter}
+.iconbtn{background:#ffffff14;border:0;border-radius:6px;width:38px;height:38px;font-size:17px;cursor:pointer;transform:skew(-8deg)}
+.iconbtn:hover{background:#ffffff26}
+.tokens{background:linear-gradient(180deg,#0b1a55,#071034);border:2px solid #ffffff30;border-radius:6px;transform:skew(-8deg);box-shadow:0 4px 0 #0007}
+.tokens b{font-family:"Anton",Impact,sans-serif;font-size:24px;color:#fff;text-shadow:0 2px 0 #000}
+.tokens small{color:#ffd86b}
+.lvl{display:flex;align-items:center;gap:8px;transform:skew(-8deg);background:#0b1a55cc;border:2px solid #ffffff26;border-radius:6px;padding:4px 10px 4px 4px;box-shadow:0 4px 0 #0007}
+.lvlnum{width:44px;height:44px;display:grid;place-items:center;align-content:center;line-height:.95;
+  background:linear-gradient(180deg,#6fe3ff,#2a8cff 55%,#1a4fd1);clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+.lvlnum small{font:900 8px Inter;color:#05205e;letter-spacing:.08em}
+.lvlnum b{font-family:"Anton",Impact;font-size:19px;color:#fff;text-shadow:0 2px 0 #0a2a80}
+.lvlbar{display:flex;flex-direction:column;gap:3px;min-width:120px}
+.xpbar{height:8px;border-radius:2px;background:#000a;overflow:hidden}
+.xpbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6fe3ff,#fff04a);transition:width .6s}
+.lvlbar span{font:800 10px Inter;color:#cfe0ff;letter-spacing:.04em;white-space:nowrap}
+.lvl.pop{animation:bump .6s}
+.qty{background:#06113acc;border:2px solid #ffffff26;border-radius:6px;transform:skew(-8deg)}
+.qty button{background:#ffffff14;border-radius:4px}
+.qtyin input{font-family:"Anton",Impact,sans-serif;font-size:26px}
+.presets button{font-family:"Anton",Impact;text-transform:uppercase;font-size:15px;letter-spacing:.03em;font-weight:400;
+  background:#06113a99;border:2px solid #ffffff24;color:#d3defc;border-radius:4px;transform:skew(-8deg);padding:5px 11px}
+.presets button.on{background:var(--fy);border-color:var(--fy);color:#111}
+#openBtn{font-family:"Anton",Impact,sans-serif;font-size:36px;letter-spacing:.03em;color:#141414;text-shadow:none;
+  border:0;border-radius:6px;transform:skew(-8deg);min-width:240px;height:66px;
+  background:linear-gradient(180deg,#fffb8a 0%,#fff04a 30%,#ffd500 70%,#f0b800 100%);
+  box-shadow:0 6px 0 #9e7400,0 12px 30px #0009,inset 0 2px 0 #fffde0}
+#openBtn:hover:not(:disabled){transform:skew(-8deg) translateY(-2px);filter:brightness(1.05)}
+#openBtn:active:not(:disabled){transform:skew(-8deg) translateY(4px);box-shadow:0 2px 0 #9e7400,inset 0 2px 0 #fffde0}
+#openBtn .sub{font:900 11px Inter;color:#4a3a00;letter-spacing:.12em}
+#autoBtn{border-radius:6px;transform:skew(-8deg);background:#06113acc;border:2px solid #ffffff30;box-shadow:0 6px 0 #0008;color:#d3defc}
+#autoBtn.on{background:linear-gradient(180deg,#fffb8a,#fff04a 40%,#ffd500);border-color:#9e7400;color:#111;box-shadow:0 6px 0 #9e7400,0 0 26px #fff04a88}
+.lagwarn{color:#fff4a8}
+.summary{background:#06113ae6;border:2px solid #ffffff22;border-radius:6px}
+.summary .chip{background:#0d1d5c;border-radius:4px}
+.drawer{background:linear-gradient(180deg,#0c1a52,#081238);border-left:2px solid #ffffff22;width:min(460px,100vw)}
+.drawer header{background:linear-gradient(90deg,#1747c9,#0c1a52);border-bottom:0}
+.drawer h2{font-size:32px;transform:skew(-7deg);text-shadow:0 3px 0 #0008}
+.tabs{gap:4px;padding:12px 12px 0}
+.tabs button{font-family:"Anton",Impact;text-transform:uppercase;font-size:14px;font-weight:400;letter-spacing:.03em;padding:8px 2px;
+  background:#ffffff10;border:0;border-radius:4px;color:#c9d6ff;transform:skew(-8deg)}
+.tabs button.on{background:var(--fy);color:#111}
+.stat{background:#ffffff0d;border:0;border-radius:6px}
+.stat b{font-family:"Anton",Impact}
+/* Fortnite-style item cards */
+.item,.scard{position:relative;border:0;border-radius:6px;overflow:hidden;background:#0a1440;box-shadow:0 4px 0 #0006}
+.item .art,.scard .art,.reward .card,.bigwin .card{
+  background:
+    repeating-linear-gradient(135deg,#ffffff0c 0 10px,transparent 10px 22px),
+    radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--rc) 70%,#fff) 0%,var(--rc) 34%,color-mix(in srgb,var(--rc) 45%,#000) 100%)!important}
+.item .meta,.scard .meta{background:linear-gradient(180deg,#0a1440,#060c2a);border-top:0;border-bottom:5px solid var(--rc);padding:8px 10px 9px}
+.item .meta b,.scard .meta b{font-family:"Anton",Impact;text-transform:uppercase;font-size:17px;font-weight:400;letter-spacing:.02em}
+.item .meta span,.scard .meta span{font:800 11px Inter;text-transform:uppercase;letter-spacing:.05em;color:#b7c4ee}
+.item .count{border-radius:4px;font-family:"Anton",Impact;font-weight:400;font-size:14px;background:#000b}
+.reward .card,.bigwin .card{border-radius:6px}
+.label .n{font-family:"Anton",Impact,sans-serif;text-transform:uppercase}
+.bigwin h3{font-family:"Anton",Impact;transform:skew(-7deg)}
+.bigwin button,.ufoot button{font-family:"Anton",Impact;text-transform:uppercase;font-weight:400;border-radius:4px;transform:skew(-8deg);
+  background:linear-gradient(180deg,#fffb8a,#fff04a 40%,#ffd500);color:#111;box-shadow:0 4px 0 #9e7400}
+.lb li{background:#ffffff0d;border:0;border-radius:6px;transform:skew(-4deg)}
+.lb li.you{box-shadow:0 0 0 2px var(--fy) inset}
+.lb .rk,.lb .tk{font-family:"Anton",Impact}
+.lb .lv{font:900 10px Inter;background:#2a8cff;color:#fff;border-radius:3px;padding:1px 5px;margin-left:6px;vertical-align:2px}
+.ubox{background:#0b1850;border:2px solid #ffffff22;border-radius:8px}
+.uhead{background:linear-gradient(90deg,#1747c9,#0b1850)}
+.uhead h2{font-family:"Anton",Impact;color:#fff;transform:skew(-7deg)}
+.uver h3 .tag{background:var(--fy);color:#111;border-radius:3px}
+.me{background:#fff04a14;border-color:#fff04a77}
+.feed li{background:#ffffff0d}
+/* level up banner */
+.lvlup{position:fixed;left:0;right:0;top:22%;z-index:33;display:grid;place-items:center;pointer-events:none}
+.lvlup>div{display:flex;align-items:center;gap:18px;padding:12px 60px;transform:skew(-8deg) translateX(-120vw);
+  background:linear-gradient(90deg,transparent,#1a4fd1ee 15%,#2a8cffee 50%,#1a4fd1ee 85%,transparent);opacity:0}
+.lvlup.on>div{animation:lvlIn 2.6s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes lvlIn{0%{transform:skew(-8deg) translateX(-120vw);opacity:1}18%,78%{transform:skew(-8deg) translateX(0);opacity:1}100%{transform:skew(-8deg) translateX(120vw);opacity:1}}
+.lvlup small{font-family:"Anton",Impact;font-size:clamp(26px,4vw,44px);color:#fff;text-shadow:0 3px 0 #0008}
+.lvlup b{font-family:"Anton",Impact;font-size:clamp(48px,8vw,90px);color:var(--fy);text-shadow:0 4px 0 #0008,0 0 30px #fff04a88;line-height:1}
+/* quests */
+.qrow{display:flex;gap:12px;align-items:center;background:#ffffff0d;border-radius:6px;padding:12px;margin-bottom:8px;transform:skew(-3deg)}
+.qrow.done{background:#69bb1e22;box-shadow:0 0 0 2px #69bb1e inset}
+.qrow .qi{width:40px;height:40px;flex:none;display:grid;place-items:center;font-size:20px;background:#ffffff14;border-radius:6px}
+.qrow .qt{flex:1;min-width:0}
+.qrow .qt b{display:block;font-size:14px}
+.qbar{height:8px;background:#000a;border-radius:2px;overflow:hidden;margin-top:6px}
+.qbar i{display:block;height:100%;background:linear-gradient(90deg,#fff04a,#ffd500)}
+.qrow.done .qbar i{background:#69bb1e}
+.qrow .qp{font:800 11px Inter;color:#b7c4ee;margin-top:4px}
+.qrow .qx{font-family:"Anton",Impact;font-size:16px;color:#6fe3ff;white-space:nowrap;text-align:right}
+.qrow .qx small{display:block;font:800 10px Inter;color:#b7c4ee}
+/* shop */
+.shopgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:8px 0 18px}
+.scard .art{aspect-ratio:1/1;position:relative;display:grid;place-items:center}
+.scard .art img{width:82%;filter:var(--sf);}
+.scard .art .sw{position:absolute;inset:14%;border-radius:8px;background:var(--th);box-shadow:inset 0 0 0 2px #fff6}
+.scard .buy{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px}
+.scard .price{display:flex;align-items:center;gap:4px;font-family:"Anton",Impact;font-size:16px}
+.scard .price img{width:20px;height:20px}
+.scard button{font-family:"Anton",Impact;text-transform:uppercase;font-size:14px;border:0;border-radius:4px;padding:5px 12px;cursor:pointer;
+  background:linear-gradient(180deg,#fffb8a,#fff04a 40%,#ffd500);color:#111;transform:skew(-8deg)}
+.scard button.eq{background:#69bb1e;color:#fff}
+.scard button:disabled{background:#ffffff1a;color:#8ea0d6;cursor:default}
+@keyframes rainbowHue{to{filter:hue-rotate(360deg) saturate(1.8)}}
+body.skin-rainbow .chest .body,body.skin-rainbow .chest .lid,.scard .art img.rainbow{animation:rainbowHue 3s linear infinite}
+.chest .body,.chest .lid{filter:var(--skin,none)}
+.chest.open .lid{filter:var(--skin,none) brightness(.85)}
+/* cheats */
+.cheats{position:fixed;left:16px;bottom:16px;z-index:40;width:min(330px,calc(100vw - 32px));background:#0b0f22f2;border:2px solid #ff4d5e;border-radius:8px;
+  padding:12px;box-shadow:0 20px 50px #000c;font-size:13px}
+.cheats h4{font-family:"Anton",Impact;font-size:20px;color:#ff6b78;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cheats h4 button{background:none;border:0;color:#fff;font-size:22px;cursor:pointer}
+.cheats .row{display:flex;gap:6px;margin-bottom:6px}
+.cheats input{flex:1;min-width:0;background:#ffffff14;border:1px solid #ffffff30;border-radius:4px;color:#fff;padding:7px 8px;font:700 13px Inter}
+.cheats button.c{background:#ff4d5e;color:#fff;border:0;border-radius:4px;padding:7px 10px;font:800 12px Inter;cursor:pointer;white-space:nowrap}
+.cheats button.c.alt{background:#ffffff1f}
+.cheats .note{color:#b7c4ee;font-size:11px;margin-top:6px}
+.scard .meta b,.scard .meta>span{display:block}
+@media (max-width:1400px){.tokens small{display:none}.tokens{padding-right:10px}}
+@media (max-width:1240px){.navbtn .lbl{display:none}.lvlbar{display:none}.lvl{padding:4px}}
+@media (max-width:760px){header{flex-wrap:wrap;row-gap:4px;padding:8px 10px}.nav{order:5;width:100%;margin-left:0;justify-content:space-between}
+  .navbtn{padding:6px 10px;font-size:18px}.navbtn .badge{font-size:10px;padding:0 5px}.brand{font-size:22px}.iconbtn{display:none}
+  .lvlnum{width:36px;height:36px}.lvlnum b{font-size:16px}.tokens img{width:28px;height:28px}.tokens b{font-size:20px}}
 </style>
 </head>
 <body>
 <header>
   <div class="brand display">Pirate <span>Chest</span></div>
+  <nav class="nav">
+    <button class="navbtn" data-open="inv" title="Locker">🎒 <span class="lbl">Locker</span> <span class="badge" id="invBadge">0/5</span></button>
+    <button class="navbtn" data-open="quests" title="Quests">⚡ <span class="lbl">Quests</span> <span class="badge" id="questBadge">0/3</span></button>
+    <button class="navbtn" data-open="shop" title="Pirate Shop">🏴‍☠️ <span class="lbl">Shop</span></button>
+    <button class="navbtn" data-open="lb" title="Leaderboard">🏆 <span class="lbl">Leaderboard</span></button>
+    <button class="navbtn" id="updatesBtn" title="Update log">📜 <span class="lbl">Updates</span><span class="newdot" id="newDot" hidden></span></button>
+  </nav>
   <div class="spacer"></div>
-  <button class="navbtn" data-open="inv" title="Inventory">🎒 <span class="lbl">Inventory</span> <span class="badge" id="invBadge">0/5</span></button>
-  <button class="navbtn" data-open="lb" title="Leaderboard">🏆 <span class="lbl">Leaderboard</span></button>
-  <button class="navbtn" data-open="odds" title="Odds">🎲 <span class="lbl">Odds</span></button>
-  <button class="navbtn" id="updatesBtn" title="Update log">📜 <span class="lbl">Updates</span><span class="newdot" id="newDot" hidden></span></button>
+  <button class="iconbtn" id="muteBtn" title="Sound on/off">🔊</button>
+  <div class="lvl" id="lvlBox" title="Level">
+    <div class="lvlnum"><small>LVL</small><b id="lvlNum">1</b></div>
+    <div class="lvlbar"><div class="xpbar"><i id="xpFill"></i></div><span id="xpTxt">0 / 80,000 XP</span></div>
+  </div>
   <div class="tokens" id="tokenBox" title="Pirate Shop Tokens">
     <img src="img/token.webp" alt="">
     <b id="tokenCount">0</b>
@@ -413,11 +562,13 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 <aside class="drawer" id="drawer" aria-hidden="true">
   <header><h2 class="display" id="drawerTitle">Inventory</h2><div class="spacer"></div><button class="x" id="closeDrawer" aria-label="Close">×</button></header>
   <div class="tabs">
-    <button data-tab="inv">Inventory</button><button data-tab="lb">Leaderboard</button><button data-tab="odds">Odds</button>
+    <button data-tab="inv">Locker</button><button data-tab="quests">Quests</button><button data-tab="shop">Shop</button><button data-tab="lb">Board</button><button data-tab="odds">Odds</button>
   </div>
   <div class="body" id="drawerBody"></div>
 </aside>
 
+<div class="lvlup" id="lvlup"><div><small>LEVEL UP!</small><b id="lvlupNum">2</b></div></div>
+<div class="cheats" id="cheats" hidden></div>
 <div class="updates" id="updates" aria-hidden="true"><div class="ubox" id="ubox"></div></div>
 <div class="bigwin" id="bigwin"><div class="box" id="bigwinBox"></div></div>
 <div class="vignette" id="vignette"></div>
@@ -454,6 +605,12 @@ let tokens = store.get('pc_tokens',0);
 let myName = store.get('pc_name','Anonymous');
 let count = Math.min(1e15,Math.max(1,store.get('pc_count',1)));
 let auto = false;
+let earned = store.get('pc_earned', store.get('pc_tokens',0));   // lifetime tokens (leaderboard)
+let xp = store.get('pc_xp',0);
+let owned = store.get('pc_owned',['classic','blue']);
+let skin = store.get('pc_skin','classic'), theme = store.get('pc_theme','blue');
+let muted = store.get('pc_mute',false);
+let forceNext = null;                                            // cheat: guarantee a reward next open
 let busy = false;
 
 /* ---------- live leaderboard (no setup: shared channel on ntfy.sh) ----------
@@ -474,23 +631,26 @@ const okNum=v=>typeof v==='number'&&isFinite(v)&&v>=0&&v<1e21;
 function lbMerge(id,e){
   if(!/^[0-9a-f]{12}$/.test(id)||!/^\d{4}$/.test(String(e.n))||!okNum(e.t)||!okNum(e.c||0)) return;
   const o=lbCache[id]||{t:0,c:0,ts:0};
-  lbCache[id]={n:String(e.n),t:Math.max(o.t,e.t),c:Math.max(o.c,e.c||0),ts:Math.max(o.ts,e.ts||0)};
+  lbCache[id]={n:String(e.n),t:Math.max(o.t,e.t),c:Math.max(o.c,e.c||0),l:Math.max(o.l||1,okNum(e.l)?e.l:1),ts:Math.max(o.ts,e.ts||0)};
 }
 function lbSorted(){
   return Object.entries(lbCache).map(([id,e])=>({id,...e})).filter(e=>e.t>0||e.c>0)
     .sort((a,b)=>b.t-a.t||b.c-a.c);
 }
-function lbSave(){ const top=lbSorted().slice(0,300); lbCache=Object.fromEntries(top.map(e=>[e.id,{n:e.n,t:e.t,c:e.c,ts:e.ts}])); store.set('pc_lbcache',lbCache); }
+function lbSave(){ const top=lbSorted().slice(0,300); lbCache=Object.fromEntries(top.map(e=>[e.id,{n:e.n,t:e.t,c:e.c,l:e.l,ts:e.ts}])); store.set('pc_lbcache',lbCache); }
 function publish(obj){ return fetch(LB_URL,{method:'POST',body:JSON.stringify(obj)}).catch(()=>{}); }
-function myEntry(){ return {k:'s',id:shortId,n:myNum(),t:tokens,c:opened,ts:Date.now()}; }
-function pushScore(){
-  if(!opened) return;
+function myEntry(){ return {k:'s',id:shortId,n:myNum(),t:earned,c:opened,l:levelOf(xp),ts:Date.now()}; }
+let pushedT=-1;
+function pushScore(now){
+  if(!opened && !earned) return;
   lbMerge(shortId,myEntry()); lbSave();
-  const wait=20000-(Date.now()-lastPush);
-  clearTimeout(pushTimer);
-  if(wait>0){ pushTimer=setTimeout(pushScore,wait); return; }
-  lastPush=Date.now(); publish(myEntry());
+  const gap = (now || earned!==pushedT) ? 3000 : 20000;      // token changes go out within seconds
+  const wait=gap-(Date.now()-lastPush);
+  clearTimeout(pushTimer); pushTimer=0;
+  if(wait>0){ pushTimer=setTimeout(()=>pushScore(now),wait); return; }
+  lastPush=Date.now(); pushedT=earned; publish(myEntry());
 }
+addEventListener('pagehide',()=>{ if(pushTimer && navigator.sendBeacon){ navigator.sendBeacon(LB_URL, JSON.stringify(myEntry())); } });
 function publishPull(id,times){
   if(Date.now()-lastPull<30000) return;
   lastPull=Date.now(); publish({k:'p',id:shortId,n:myNum(),r:id,x:times,ts:Date.now()});
@@ -506,7 +666,7 @@ async function fetchBoard(){
     let d; try{ d=JSON.parse(m.message); }catch{ continue; }
     if(d.k==='s') lbMerge(d.id,d);
     else if(d.k==='snap' && Array.isArray(d.p)){ newestSnap=Math.max(newestSnap,m.time*1000);
-      for(const e of d.p.slice(0,60)) if(Array.isArray(e)) lbMerge(e[0],{n:e[1],t:e[2],c:e[3],ts:e[4]}); }
+      for(const e of d.p.slice(0,60)) if(Array.isArray(e)) lbMerge(e[0],{n:e[1],t:e[2],c:e[3],ts:e[4],l:e[5]}); }
     else if(d.k==='p' && byId[d.r] && /^\d{4}$/.test(String(d.n))) feed.push({n:d.n,r:d.r,x:okNum(d.x)?d.x:1,ts:m.time*1000,id:d.id});
   }
   if(opened) lbMerge(shortId,myEntry());
@@ -514,13 +674,13 @@ async function fetchBoard(){
   const board=lbSorted();
   // keep the board alive: re-post a snapshot if nobody has for 3 hours
   if(board.length && Date.now()-newestSnap>3*3600e3)
-    publish({k:'snap',p:board.slice(0,40).map(e=>[e.id,e.n,e.t,e.c,e.ts])});
+    publish({k:'snap',p:board.slice(0,40).map(e=>[e.id,e.n,e.t,e.c,e.ts,e.l||1])});
   return {board, feed:feed.sort((a,b)=>b.ts-a.ts).slice(0,10)};
 }
 /* ---------- rolling (fast, works for millions) ---------- */
 const DOM_MAX = 100;        // up to this many: full animated chests
 const DRAW_CAP = 20000;     // most chests drawn on screen at once
-const RHEX = {mythic:'#ffcf3d',legendary:'#ff8a2a',epic:'#c35cff',rare:'#3fa9ff',uncommon:'#5fd35a'};
+const RHEX = {mythic:'#ffc93c',legendary:'#e98d4b',epic:'#c359ff',rare:'#2cc3ff',uncommon:'#69bb1e'};
 async function rollWins(n, onProgress){
   if(window.__forceRoll){ const a=window.__forceRoll(n); return a.map((id,i)=>id?{i,id}:null).filter(Boolean); }
   const T=[]; let acc=0;
@@ -626,15 +786,16 @@ const CG=(()=>{
     const w=Math.max(4,Math.round(chestW*dpr)), h=Math.max(4,Math.round(chestH*dpr)), lh=h*.5792;
     const mk=(W,H)=>Object.assign(document.createElement('canvas'),{width:W,height:H});
     sprClosed=mk(w,h); let c=sprClosed.getContext('2d');
-    c.drawImage(body,0,lh,w,h-lh); c.drawImage(lid,0,0,w,lh);
+    const sf=skinFilter(true); c.filter=sf;
+    c.drawImage(body,0,lh,w,h-lh); c.drawImage(lid,0,0,w,lh); c.filter='none';
     // open: lid tilted back above, golden inside showing
     const up=Math.round(h*.22);
     sprOpen=mk(w,h+up); c=sprOpen.getContext('2d');
     const g=c.createRadialGradient(w/2,up+h*.56,0,w/2,up+h*.56,w*.42);
     g.addColorStop(0,'#fff6c8');g.addColorStop(.35,'#ffd85a');g.addColorStop(.75,'#8a5206');g.addColorStop(1,'#3b2103');
     c.fillStyle=g; c.beginPath(); c.ellipse(w/2,up+h*.565,w*.41,h*.1,0,0,Math.PI*2); c.fill();
-    c.drawImage(body,0,up+lh,w,h-lh);
-    c.save(); c.filter='brightness(.85)'; c.drawImage(lid,0,up+h*.5-lh*.62,w,lh*.62); c.restore();
+    c.filter=sf; c.drawImage(body,0,up+lh,w,h-lh);
+    c.filter=(sf==='none'?'':sf+' ')+'brightness(.85)'; c.drawImage(lid,0,up+h*.5-lh*.62,w,lh*.62); c.filter='none';
     sprOpen.up=up;
     for(const [k,hex] of Object.entries(RHEX)){
       const s=Math.round(w*1.9), gc=mk(s,s), x=gc.getContext('2d');
@@ -713,7 +874,7 @@ const CG=(()=>{
     const st=$('#stage').getBoundingClientRect(), c=cv.getBoundingClientRect(), [x,y]=chestXY(i);
     return {left:c.left-st.left+x, top:c.top-st.top+y, w:chestW};
   }
-  return {setup,resize,openAll,setWins,hide,cellRect,get n(){return n}};
+  return {setup,resize,openAll,setWins,hide,cellRect,refresh(){ if(n){ sprites(); drawAll(); } },get n(){return n}};
 })();
 
 /* ---------- quantity controls ---------- */
@@ -773,8 +934,7 @@ function setAuto(v){
 
 function showSummary(counts, total){
   const chips=REWARDS.filter(r=>counts[r.id]).map(r=>`<span class="chip ${r.fit?'fit':''}" style="--rc:${RHEX[r.rarity]}"><img src="img/${r.img}.webp" alt="">${r.name} <b>×${fmtBig(counts[r.id])}</b></span>`).join('');
-  const expected=total*REWARDS.reduce((s,r)=>s+1/r.odds,0), got=Object.values(counts).reduce((a,b)=>a+b,0);
-  const luck=expected>=1?Math.round(got/expected*100):null;
+  const luck=luckOf(counts,total);
   const el=$('#summary');
   el.innerHTML=`<span class="tot">${fmtBig(total)} opened</span>`
     +(luck!=null?`<span class="luck ${luck>=105?'hi':luck<=95?'lo':''}" title="Rewards found vs. expected for this many chests">🍀 Luck ${luck}%</span>`:'')
@@ -783,6 +943,12 @@ function showSummary(counts, total){
 }
 
 async function openChests(){
+  if(busy) return;
+  try{ await openChestsInner(); }
+  catch(e){ console.error(e); toast('Something went wrong — your rewards were still saved.'); }
+  finally{ if(busy){ busy=false; const b=$('#openBtn'); b.disabled=false; b.classList.remove('cool'); lockControls(false); } }
+}
+async function openChestsInner(){
   if(busy) return;
   busy=true; lockControls(true);
   const btn=$('#openBtn'), dom=isDom();
@@ -794,9 +960,13 @@ async function openChests(){
   const sub=$('#openSub');
   if(count>EXACT_MAX) sub.textContent='COUNTING…';
   const {counts,list}=await roll(count, f=>{sub.textContent=`ROLLING ${Math.round(f*100)}%`});
+  if(forceNext){ const id=forceNext; forceNext=null;
+    if(list){ const i=Math.floor(rnd()*count); const old=list.find(w=>w.i===i); if(old){counts[old.id]--; if(!counts[old.id]) delete counts[old.id]; list.splice(list.indexOf(old),1);} list.push({i,id}); }
+    counts[id]=(counts[id]||0)+1; }
   updateControls(); lockControls(true);
   await sleep(60);
 
+  sfx('open');
   const stagger=dom?Math.min(70,1400/count):0;
   const cool=dom?(auto?1300:1900)+stagger*count:(auto?1500:2600);
   btn.style.setProperty('--cool',cool+'ms');
@@ -810,6 +980,11 @@ async function openChests(){
 
   const tokenTotal=(counts.token||0)*byId.token.tokens;
   let tokenEl=null;
+  if(tokenTotal){ tokens+=tokenTotal; earned+=tokenTotal; store.set('pc_tokens',tokens); store.set('pc_earned',earned); pushScore(true); }
+  const luck=luckOf(counts,count);
+  questTrack('opened',count); questTrack('opens',1); if(auto) questTrack('auto',1);
+  for(const r of REWARDS) if(counts[r.id]) questTrack('r:'+r.id,counts[r.id]);
+  if(count>=1000 && luck>=110) questTrack('luck',1);
 
   if(dom){
     const chests=[...$('#grid').children], at=new Map(list.map(w=>[w.i,w.id]));
@@ -838,9 +1013,10 @@ async function openChests(){
     await sleep((count-1)*stagger+620+500);
   }else{
     // place wins on random drawn chests, rarest first
-    const n=CG.n, ids=[];
-    for(const r of [...REWARDS].sort((a,b)=>b.odds-a.odds)){
-      const k=Math.min(counts[r.id]||0, n-ids.length); for(let j=0;j<k;j++) ids.push(r.id);
+    const n=CG.n, ids=[], rarest=[...REWARDS].sort((a,b)=>b.odds-a.odds);
+    for(const r of rarest) if(counts[r.id] && ids.length<n) ids.push(r.id);          // every reward type gets a chest
+    for(const r of rarest){
+      const k=Math.min((counts[r.id]||0)-1, n-ids.length); for(let j=0;j<k;j++) ids.push(r.id);
     }
     const cells=[...Array(n).keys()];
     for(let j=0;j<ids.length;j++){ const x=j+Math.floor(rnd()*(n-j)); [cells[j],cells[x]]=[cells[x],cells[j]]; }
@@ -862,8 +1038,11 @@ async function openChests(){
   }
 
   // Pirate Token: zoom in, rumble, go gold, burst, play the animation
-  if(tokenTotal) await tokenScene(tokenEl, tokens+tokenTotal);
+  if(tokenTotal && tokenEl) await tokenScene(tokenEl, tokens);
+  else if(tokenTotal) renderTokens(true);
   renderBadge();
+  sfxReward(counts);
+  gainXp(xpFor(counts,count));
 
   // big celebration for the rarest non-token pull in this batch
   const top=REWARDS.filter(r=>!r.tokens&&counts[r.id]).sort((a,b)=>b.odds-a.odds)[0];
@@ -1032,7 +1211,7 @@ async function tokenScene(el, newTotal){
   const f=$('#flash'); f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
   await sleep(110);
   el.classList.add('open');
-  tokens=newTotal; store.set('pc_tokens',tokens); renderTokens(true);
+  renderTokens(true);
   await sleep(450);
 
   // 5. the Pirate Shop Access animation plays across the top of the screen
@@ -1050,7 +1229,7 @@ async function tokenScene(el, newTotal){
 
 /* ---------- header ---------- */
 function renderTokens(bump){
-  $('#tokenCount').textContent=fmtBig(tokens);
+  $('#tokenCount').textContent=fmtBig(tokens); if(tab==='shop'&&$('#drawer').classList.contains('on')) renderShop();
   if(bump){const t=$('#tokenBox'); t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump')}
 }
 function foundCount(){return REWARDS.filter(r=>!r.tokens&&inv[r.id]).length}
@@ -1066,8 +1245,8 @@ function closeDrawer(){$('#drawer').classList.remove('on');$('#scrim').classList
 function openDrawer(t){
   tab=t; $('#drawer').classList.add('on'); $('#scrim').classList.add('on'); $('#drawer').setAttribute('aria-hidden','false');
   document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
-  $('#drawerTitle').textContent={inv:'Inventory',lb:'Leaderboard',odds:'Drop Odds'}[t];
-  ({inv:renderInv,lb:renderLb,odds:renderOdds})[t]();
+  $('#drawerTitle').textContent={inv:'Locker',quests:'Daily Quests',shop:'Pirate Shop',lb:'Leaderboard',odds:'Drop Odds'}[t];
+  ({inv:renderInv,quests:renderQuests,shop:renderShop,lb:renderLb,odds:renderOdds})[t]();
 }
 function renderInv(){
   const total=REWARDS.filter(r=>!r.tokens).length;
@@ -1075,7 +1254,7 @@ function renderInv(){
     <div class="statrow">
       <div class="stat"><b>${fmtBig(opened)}</b><span>Opened</span></div>
       <div class="stat"><b>${fmtBig(Object.values(inv).reduce((a,b)=>a+b,0))}</b><span>Rewards</span></div>
-      <div class="stat"><b>${fmtBig(tokens)}</b><span>Tokens</span></div>
+      <div class="stat"><b>${fmtBig(levelOf(xp))}</b><span>Level</span></div>
     </div>
     <div class="found"><b class="display">${foundCount()}/${total} found</b><span class="muted">${best?'Best: '+byId[best].name:'Nothing yet — keep opening!'}</span></div>
     <div class="inv">${REWARDS.map(r=>{
@@ -1093,16 +1272,16 @@ async function renderLb(){
     if(tab!=='lb') return;
     const top=board.slice(0,25), idx=board.findIndex(p=>p.id===shortId);
     const rows=top.map((p,i)=>`<li class="${p.id===shortId?'you':''}"><span class="rk">${i+1}</span>
-      <span class="nm">Anonymous #${p.n}${p.id===shortId?'<em>YOU</em>':''}<br><span class="ch">${fmtBig(p.c)} chests</span></span>
+      <span class="nm">Anonymous #${p.n}<span class="lv">LVL ${fmtBig(p.l||1)}</span>${p.id===shortId?'<em>YOU</em>':''}<br><span class="ch">${fmtBig(p.c)} chests</span></span>
       <span class="tk"><img src="img/token.webp" alt="">${fmtBig(p.t)}</span></li>`).join('');
     const fl=(feed||[]).map(f=>{const r=byId[f.r];return `<li style="--rc:${RHEX[r.rarity]}"><img class="${r.fit?'fit':''}" src="img/${r.img}.webp" alt="">
       <span><b>Anonymous #${f.n}</b> pulled <b>${r.name}</b>${f.x>1?' ×'+fmtBig(f.x):''}</span><time>${ago(f.ts)}</time></li>`}).join('');
     body.innerHTML=`<div class="sect"><h4 class="display">Top players</h4>${offline?'<span class="muted">offline · saved copy</span>':'<span class="live">LIVE</span>'}</div>`
       +(rows?`<ol class="lb">${rows}</ol>`:`<div class="empty-lb"><img src="img/token.webp" alt=""><p><b>The board is empty.</b></p><p class="muted">Open some chests to claim the top spot.</p></div>`)
-      +`<div class="me">You are <b>${myName}</b> · ${fmtBig(tokens)} tokens · ${fmtBig(opened)} chests${idx>=0?` · rank #${idx+1}`:''}</div>`
+      +`<div class="me">You are <b>${myName}</b> · ${fmtBig(earned)} tokens earned · ${fmtBig(opened)} chests${idx>=0?` · rank #${idx+1}`:''}</div>`
       +`<div class="sect"><h4 class="display">Recent big pulls</h4><span class="muted">last 12 hours</span></div>`
       +(fl?`<ul class="feed">${fl}</ul>`:'<p class="muted">No big pulls yet. Golden Llama Crew or rarer shows up here.</p>')
-      +`<p class="muted" style="margin-top:12px">Everyone is anonymous. Ranked by Pirate Tokens, then chests opened.</p>`;
+      +`<p class="muted" style="margin-top:12px">Everyone is anonymous. Ranked by Pirate Tokens earned (spending in the shop doesn't lower your rank), then chests opened.</p>`;
   };
   if(opened) lbMerge(shortId,myEntry());
   draw(lbSorted(),null,false);                       // instant: saved copy
@@ -1120,9 +1299,209 @@ function renderOdds(){
 
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)}
 
+
+/* ================= v2.1 systems ================= */
+/* --- sound (synthesised, no files) --- */
+let AC=null;
+function ac(){ if(!AC){ try{ AC=new (window.AudioContext||window.webkitAudioContext)(); }catch{} } if(AC&&AC.state==='suspended') AC.resume(); return AC; }
+addEventListener('pointerdown',()=>ac(),{once:true});
+function tone(f,t0,d,type='triangle',vol=.12){
+  const a=ac(); if(!a||muted) return; const o=a.createOscillator(), g=a.createGain();
+  o.type=type; o.frequency.setValueAtTime(f,a.currentTime+t0);
+  g.gain.setValueAtTime(0,a.currentTime+t0); g.gain.linearRampToValueAtTime(vol,a.currentTime+t0+.01); g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+t0+d);
+  o.connect(g).connect(a.destination); o.start(a.currentTime+t0); o.stop(a.currentTime+t0+d+.05);
+}
+function sfx(k){
+  if(muted) return;
+  if(k==='open'){ tone(140,0,.18,'sine',.2); tone(90,.03,.22,'sine',.15); tone(660,.12,.15,'triangle',.06); }
+  else if(k==='click'){ tone(900,0,.05,'square',.03); }
+  else if(k==='coin'){ tone(988,0,.08,'square',.05); tone(1319,.08,.25,'square',.05); }
+  else if(k==='quest'){ [523,659,784,1047].forEach((f,i)=>tone(f,i*.08,.25,'triangle',.09)); }
+  else if(k==='level'){ [392,523,659,784,1047,1319].forEach((f,i)=>tone(f,i*.07,.35,'sawtooth',.05)); tone(1568,.45,.6,'triangle',.08); }
+  else if(k==='rare'){ [659,784,988].forEach((f,i)=>tone(f,.5+i*.07,.3,'triangle',.08)); }
+  else if(k==='epic'){ [523,659,784,1047].forEach((f,i)=>tone(f,.5+i*.08,.4,'triangle',.09)); }
+  else if(k==='legend'){ [392,523,659,784,1047,1319].forEach((f,i)=>tone(f,.5+i*.09,.5,'sawtooth',.05)); }
+}
+function sfxReward(counts){
+  const top=REWARDS.filter(r=>!r.tokens&&counts[r.id]).sort((a,b)=>b.odds-a.odds)[0];
+  if(!top) return; sfx(top.odds>=7000?'legend':top.odds>=500?'epic':'rare');
+}
+function renderMute(){ $('#muteBtn').textContent=muted?'🔇':'🔊'; }
+$('#muteBtn').onclick=()=>{ muted=!muted; store.set('pc_mute',muted); renderMute(); if(!muted) sfx('click'); };
+
+/* --- levels & XP (Battle Pass style: 80,000 XP per level, no cap) --- */
+const XP_PER_LEVEL=80000;
+const XPV={kawaii:300,london:400,bling:800,car:8000,token:30000,uzi:150000};
+const levelOf=x=>Math.floor(x/XP_PER_LEVEL)+1;
+function luckOf(counts,total){
+  const expected=total*REWARDS.reduce((s,r)=>s+1/r.odds,0), got=Object.values(counts).reduce((a,b)=>a+b,0);
+  return expected>=1?Math.round(got/expected*100):null;
+}
+function xpFor(counts,total){
+  let x=1500+2500*Math.log10(total);
+  for(const r of REWARDS){ const k=counts[r.id]||0; if(k) x+=XPV[r.id]*(1+Math.log10(k)); }
+  return Math.round(x);
+}
+function gainXp(n){
+  if(!n) return;
+  const before=levelOf(xp); xp+=n; store.set('pc_xp',xp);
+  const after=levelOf(xp); renderLevel();
+  if(after>before){ showLevelUp(after); pushScore(true); }
+}
+function renderLevel(){
+  const l=levelOf(xp), into=xp-(l-1)*XP_PER_LEVEL;
+  $('#lvlNum').textContent=l>=1e5?fmtBig(l):l;
+  $('#xpFill').style.width=(into/XP_PER_LEVEL*100)+'%';
+  $('#xpTxt').textContent=`${fmt(into)} / ${fmt(XP_PER_LEVEL)} XP`;
+}
+let lvlTimer=0;
+function showLevelUp(l){
+  const el=$('#lvlup'); $('#lvlupNum').textContent=fmtBig(l);
+  el.classList.remove('on'); void el.offsetWidth; el.classList.add('on'); sfx('level');
+  const b=$('#lvlBox'); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+  clearTimeout(lvlTimer); lvlTimer=setTimeout(()=>el.classList.remove('on'),2700);
+}
+
+/* --- daily quests (3 per day, same for everyone that day, reset at midnight) --- */
+const QUESTS=[
+  {k:'opened', icon:'📦', goals:[1000,100000,1e7,1e9,1e12], txt:g=>`Open ${fmtBig(g)} chests`, xp:40000},
+  {k:'opens',  icon:'🔁', goals:[10,25,50], txt:g=>`Open chests ${g} times`, xp:30000},
+  {k:'r:kawaii',icon:'🎀', goals:[5,100,10000], txt:g=>`Find ${fmtBig(g)} So Kawaii loading screens`, xp:30000},
+  {k:'r:london',icon:'🎵', goals:[5,100,10000], txt:g=>`Find ${fmtBig(g)} London jam tracks`, xp:30000},
+  {k:'r:bling', icon:'💎', goals:[3,50,5000], txt:g=>`Find ${fmtBig(g)} Diamond and Gold back blings`, xp:35000},
+  {k:'r:car',   icon:'🚗', goals:[1,10], txt:g=>g===1?'Find a Golden Llama Crew':`Find ${g} Golden Llama Crews`, xp:60000},
+  {k:'r:token', icon:'🏴‍☠️', goals:[1], txt:()=>'Find a Pirate Shop Access token', xp:100000},
+  {k:'luck',   icon:'🍀', goals:[1,3], txt:g=>`Get 110%+ luck on ${g===1?'a batch':g+' batches'} of 1,000+`, xp:45000},
+  {k:'auto',   icon:'∞',  goals:[5,20], txt:g=>`Open ${g} batches with Auto-open`, xp:30000},
+];
+const dayKey=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+function seeded(str){ let h=2166136261; for(const c of str){ h^=c.charCodeAt(0); h=Math.imul(h,16777619); } return ()=>{ h^=h<<13; h^=h>>>17; h^=h<<5; return ((h>>>0)%1e6)/1e6; }; }
+let quests=store.get('pc_quests',null);
+function ensureQuests(){
+  const day=dayKey();
+  if(quests && quests.day===day) return;
+  const r=seeded('pc-quests-'+day), pool=[...QUESTS.keys()], list=[];
+  while(list.length<3){ const i=pool.splice(Math.floor(r()*pool.length),1)[0], q=QUESTS[i]; const g=q.goals[Math.floor(r()*q.goals.length)];
+    list.push({i,goal:g,prog:0,done:false}); }
+  quests={day,list,bonus:false}; store.set('pc_quests',quests);
+}
+function questTrack(k,amount){
+  ensureQuests(); let changed=false;
+  for(const q of quests.list){ const d=QUESTS[q.i]; if(q.done||d.k!==k) continue;
+    q.prog=Math.min(q.goal,q.prog+amount); changed=true;
+    if(q.prog>=q.goal){ q.done=true; setTimeout(()=>{ toast(`QUEST COMPLETE: ${d.txt(q.goal)}  +${fmt(d.xp)} XP`); sfx('quest'); gainXp(d.xp); },900); }
+  }
+  if(changed && !quests.bonus && quests.list.every(q=>q.done)){ quests.bonus=true; setTimeout(()=>{ toast('ALL DAILY QUESTS DONE!  +150,000 XP'); gainXp(150000); },2600); }
+  if(changed){ store.set('pc_quests',quests); renderQuestBadge(); if(tab==='quests'&&$('#drawer').classList.contains('on')) renderQuests(); }
+}
+function renderQuestBadge(){ ensureQuests(); $('#questBadge').textContent=`${quests.list.filter(q=>q.done).length}/3`; }
+function renderQuests(){
+  ensureQuests();
+  const now=new Date(), mid=new Date(now); mid.setHours(24,0,0,0); const ms=mid-now;
+  $('#drawerBody').innerHTML=`<div class="sect" style="margin-top:4px"><h4 class="display">Today's quests</h4><span class="muted">Resets in ${Math.floor(ms/3600e3)}h ${Math.floor(ms%3600e3/60e3)}m</span></div>`
+    +quests.list.map(q=>{const d=QUESTS[q.i];return `<div class="qrow ${q.done?'done':''}"><div class="qi">${q.done?'✅':d.icon}</div>
+      <div class="qt"><b>${d.txt(q.goal)}</b><div class="qbar"><i style="width:${q.prog/q.goal*100}%"></i></div><div class="qp">${fmtBig(q.prog)} / ${fmtBig(q.goal)}</div></div>
+      <div class="qx">+${fmtBig(d.xp)}<small>XP</small></div></div>`}).join('')
+    +`<div class="qrow ${quests.bonus?'done':''}"><div class="qi">${quests.bonus?'✅':'⭐'}</div><div class="qt"><b>Complete all 3 daily quests</b><div class="qp">${quests.list.filter(q=>q.done).length} / 3</div></div><div class="qx">+150K<small>XP</small></div></div>`
+    +`<p class="muted" style="margin-top:10px">Everyone gets the same quests each day. XP levels you up: ${fmt(XP_PER_LEVEL)} XP per level, with no level cap.</p>`;
+}
+
+/* --- Pirate Shop: spend tokens on chest styles and lobby themes --- */
+const SKINS=[
+  {id:'classic',name:'Classic',price:0,f:'none',r:'uncommon'},
+  {id:'midas',name:'Midas Gold',price:4,f:'sepia(1) saturate(3) hue-rotate(-12deg) brightness(1.15)',r:'rare'},
+  {id:'frost',name:'Frostbite',price:20,f:'hue-rotate(175deg) saturate(1.2) brightness(1.15)',r:'rare'},
+  {id:'toxic',name:'Toxic',price:60,f:'hue-rotate(65deg) saturate(1.7)',r:'epic'},
+  {id:'shadow',name:'Shadow',price:150,f:'grayscale(1) brightness(.6) contrast(1.35)',r:'epic'},
+  {id:'galaxy',name:'Galaxy',price:600,f:'hue-rotate(235deg) saturate(2.2) brightness(1.05)',r:'legendary'},
+  {id:'rainbow',name:'Rainbow',price:3000,f:'saturate(1.8) hue-rotate(300deg)',r:'mythic',anim:true},
+];
+const THEMES=[
+  {id:'blue',name:'Lobby Blue',price:0,bg:'linear-gradient(135deg,#3d8bff,#08154d)',r:'uncommon'},
+  {id:'sunset',name:'Sunset Shore',price:30,bg:'linear-gradient(135deg,#ffb05c,#b8336f)',r:'rare'},
+  {id:'toxic',name:'Toxic Swamp',price:120,bg:'linear-gradient(135deg,#b6ff5c,#1d7a3a)',r:'epic'},
+  {id:'void',name:'The Void',price:800,bg:'linear-gradient(135deg,#b06bff,#0d0426)',r:'legendary'},
+  {id:'golden',name:'Golden Hour',price:5000,bg:'linear-gradient(135deg,#fff5b0,#d48a0c)',r:'mythic'},
+];
+function skinFilter(forCanvas){ const s=SKINS.find(x=>x.id===skin)||SKINS[0]; return s.f; }
+function applyCosmetics(){
+  const s=SKINS.find(x=>x.id===skin)||SKINS[0];
+  document.documentElement.style.setProperty('--skin',s.f);
+  document.body.classList.toggle('skin-rainbow',!!s.anim);
+  document.body.dataset.theme=theme==='blue'?'':theme;
+  CG.refresh();
+}
+function buyOrEquip(kind,id){
+  const list=kind==='skin'?SKINS:THEMES, it=list.find(x=>x.id===id); if(!it) return;
+  if(!owned.includes(id+':'+kind) && !(it.price===0)){
+    if(tokens<it.price){ toast(`You need ${fmtBig(it.price-tokens)} more Pirate Tokens.`); return; }
+    tokens-=it.price; store.set('pc_tokens',tokens); owned.push(id+':'+kind); store.set('pc_owned',owned);
+    sfx('coin'); toast(`Bought ${it.name}!`);
+  }
+  if(kind==='skin'){ skin=id; store.set('pc_skin',id); } else { theme=id; store.set('pc_theme',id); }
+  applyCosmetics(); renderTokens(); renderShop();
+}
+function renderShop(){
+  const card=(kind,it)=>{
+    const has=it.price===0||owned.includes(it.id+':'+kind), eq=(kind==='skin'?skin:theme)===it.id;
+    const art=kind==='skin'?`<img class="${it.anim?'rainbow':''}" style="--sf:${it.f}" src="img/body.webp" alt="" onerror="this.remove()">`:`<div class="sw" style="--th:${it.bg}"></div>`;
+    const btn=eq?`<button class="eq" disabled>Equipped</button>`:has?`<button data-k="${kind}" data-id="${it.id}">Equip</button>`
+      :`<button data-k="${kind}" data-id="${it.id}" ${tokens<it.price?'disabled':''}>Buy</button>`;
+    return `<div class="scard" style="--rc:${RCOL[it.r]}"><div class="art">${kind==='skin'?`<img class="${it.anim?'rainbow':''}" style="--sf:${it.f};width:86%;position:absolute;top:22%" src="img/lid.webp" alt=""><img class="${it.anim?'rainbow':''}" style="--sf:${it.f};width:86%;position:absolute;top:56%" src="img/body.webp" alt="">`:art}</div>
+      <div class="meta"><b>${it.name}</b><span>${kind==='skin'?'Chest style':'Lobby theme'}</span>
+      <div class="buy"><span class="price">${has?'<span class="muted" style="font:800 11px Inter">OWNED</span>':`<img src="img/token.webp" alt="">${fmtBig(it.price)}`}</span>${btn}</div></div></div>`;
+  };
+  $('#drawerBody').innerHTML=`<div class="me" style="margin-top:0">Balance: <b>${fmtBig(tokens)}</b> Pirate Tokens. Spending doesn't lower your leaderboard rank.</div>
+    <div class="sect"><h4 class="display">Chest styles</h4></div><div class="shopgrid">${SKINS.map(x=>card('skin',x)).join('')}</div>
+    <div class="sect"><h4 class="display">Lobby themes</h4></div><div class="shopgrid">${THEMES.map(x=>card('theme',x)).join('')}</div>`;
+  $('#drawerBody').querySelectorAll('.scard button[data-id]').forEach(b=>b.onclick=()=>buyOrEquip(b.dataset.k,b.dataset.id));
+}
+
+/* --- cheats: type "pirateking" anywhere (or add #cheats to the address) --- */
+let typed='';
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||!e.key||e.key.length!==1) return;
+  typed=(typed+e.key).slice(-10).toLowerCase();
+  if(typed==='pirateking') openCheats();
+});
+if(location.hash==='#cheats') setTimeout(openCheats,800);
+function openCheats(){
+  const c=$('#cheats'); c.hidden=false;
+  c.innerHTML=`<h4>CHEAT MENU <button id="chX" aria-label="Close">×</button></h4>
+    <div class="row"><input id="chTok" placeholder="Tokens, e.g. 5000 or 2b"><button class="c" id="chTokB">Give tokens</button></div>
+    <div class="row"><input id="chLvl" placeholder="Levels, e.g. 50"><button class="c" id="chLvlB">Give levels</button></div>
+    <div class="row"><input id="chOpen" placeholder="Chests opened, e.g. 1q"><button class="c" id="chOpenB">Add chests</button></div>
+    <div class="row"><select id="chItem" style="flex:1;background:#ffffff14;color:#fff;border:1px solid #ffffff30;border-radius:4px;padding:6px">${REWARDS.map(r=>`<option value="${r.id}" style="color:#000">${r.name}</option>`).join('')}</select>
+      <button class="c alt" id="chForce">Next open</button><button class="c" id="chGive">Give 1</button></div>
+    <div class="row"><button class="c alt" id="chShop" style="flex:1">Unlock whole shop</button><button class="c alt" id="chQuest" style="flex:1">Finish quests</button></div>
+    <div class="row"><button class="c" id="chPush" style="flex:1">Update leaderboard now</button></div>
+    <div class="note">Cheats change your own save. "Update leaderboard now" sends your token total to the live board straight away.</div>`;
+  const num=id=>parseCount($(id).value);
+  $('#chX').onclick=()=>c.hidden=true;
+  $('#chTokB').onclick=()=>{ const v=num('#chTok'); if(!v) return toast('Type an amount first.');
+    tokens+=v; earned+=v; store.set('pc_tokens',tokens); store.set('pc_earned',earned); renderTokens(true); pushScore(true); toast(`+${fmtBig(v)} Pirate Tokens`); sfx('coin'); };
+  $('#chLvlB').onclick=()=>{ const v=num('#chLvl'); if(!v) return toast('Type an amount first.'); gainXp(v*XP_PER_LEVEL); };
+  $('#chOpenB').onclick=()=>{ const v=num('#chOpen'); if(!v) return toast('Type an amount first.'); opened+=v; store.set('pc_opened',opened); pushScore(true); toast(`+${fmtBig(v)} chests opened`); };
+  $('#chForce').onclick=()=>{ forceNext=$('#chItem').value; toast(`Your next open is guaranteed a ${byId[forceNext].name}.`); };
+  $('#chGive').onclick=()=>{ const id=$('#chItem').value; inv[id]=(inv[id]||0)+1; store.set('pc_inv',inv);
+    if(byId[id].tokens){ tokens+=byId[id].tokens; earned+=byId[id].tokens; store.set('pc_tokens',tokens); store.set('pc_earned',earned); renderTokens(true); pushScore(true); }
+    if(!best||byId[id].odds>byId[best].odds){ best=id; store.set('pc_best',best); } renderBadge(); toast(`Added ${byId[id].name} to your locker.`); };
+  $('#chShop').onclick=()=>{ for(const x of SKINS) owned.includes(x.id+':skin')||owned.push(x.id+':skin'); for(const x of THEMES) owned.includes(x.id+':theme')||owned.push(x.id+':theme'); store.set('pc_owned',owned); toast('Whole shop unlocked.'); };
+  $('#chQuest').onclick=()=>{ ensureQuests(); for(const q of quests.list) if(!q.done) questTrack(QUESTS[q.i].k,q.goal); };
+  $('#chPush').onclick=()=>{ lastPush=0; pushScore(true); toast('Leaderboard updated.'); };
+}
+
 /* ---------- update log (pops up by itself when there's a new version) ---------- */
-const APP_VERSION='2.0';
+const APP_VERSION='2.1';
 const UPDATES=[
+  {v:'2.1',date:'20 Nov 2026',title:'Season 2: Battle Ready',items:[
+    '<b>Fortnite makeover</b>: lobby-blue background, new font, yellow PLAY-style buttons and item-shop style rarity cards.',
+    '<b>Levels and XP</b>: every open earns XP, with 80,000 XP per level like the Battle Pass and no level cap. Level-ups get a banner.',
+    '<b>Daily Quests</b>: 3 new quests every day, plus a bonus for finishing all three.',
+    '<b>Pirate Shop</b>: finally spend your Pirate Tokens on chest styles (Midas Gold, Frostbite, Galaxy, Rainbow…) and lobby themes.',
+    '<b>Sound effects</b> for opening, rare pulls, quests and level-ups. Use 🔊 to mute.',
+    '<b>Fixed</b>: huge opens (like 1 quadrillion) could freeze before saving tokens. Tokens now save and reach the leaderboard instantly.',
+    'The leaderboard now ranks by tokens earned, so spending in the shop never lowers your rank, and it shows levels.']},
   {v:'2.0',date:'20 Nov 2026',title:'Infinite Chests Update',items:[
     '<b>Open billions of chests</b>: type any amount (try <b>5b</b> or <b>2t</b>), up to a quadrillion at once. Huge batches are counted instantly with exact odds maths.',
     '<b>∞ Auto-open</b>: press ∞ next to Open and it keeps opening by itself. Press it again or Esc to stop.',
@@ -1156,6 +1535,7 @@ if(store.get('pc_seen',null)!==APP_VERSION){ $('#newDot').hidden=false; setTimeo
 
 /* ---------- boot ---------- */
 renderTokens(); renderBadge(); setCount(count);
+renderMute(); renderLevel(); renderQuestBadge(); applyCosmetics();
 nameFor(playerId).then(n=>{myName=n;store.set('pc_name',n); if(opened) pushScore();}).catch(()=>{});
 REWARDS.forEach(r=>{const i=new Image();i.src='img/'+r.img+'.webp'});
 </script>
