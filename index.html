@@ -323,9 +323,51 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
 .lagwarn{flex-basis:100%;text-align:center;font:700 12.5px Inter,sans-serif;color:#ffcf7a;margin-top:-4px}
 .lagwarn b{color:#ffe2a3}
 
+/* ---------- v2: auto, updates, live board ---------- */
+.openwrap{display:flex;gap:8px;align-items:stretch}
+#autoBtn{width:64px;border-radius:16px;border:3px solid #3a3b44;background:var(--panel2);color:var(--muted);cursor:pointer;
+  font:400 28px/1 "Luckiest Guy",Impact,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  box-shadow:0 5px 0 #15161a;transition:all .2s}
+#autoBtn span{font:800 10px Inter,sans-serif;letter-spacing:.12em}
+#autoBtn:hover{color:#fff;border-color:#555}
+#autoBtn.on{color:#2b1a00;border-color:#5a3700;background:linear-gradient(180deg,var(--gold1),var(--gold2) 45%,var(--gold3));
+  box-shadow:0 5px 0 #6b4300,0 0 22px #ffcf3d88;animation:autoPulse 1.2s ease-in-out infinite}
+@keyframes autoPulse{50%{box-shadow:0 5px 0 #6b4300,0 0 36px #ffcf3dcc}}
+.newdot{width:9px;height:9px;border-radius:50%;background:#ff4d5e;box-shadow:0 0 0 2px var(--panel),0 0 10px #ff4d5e;margin-left:-2px}
+.updates{position:fixed;inset:0;z-index:28;display:grid;place-items:center;background:#000a;padding:16px;opacity:0;pointer-events:none;transition:opacity .25s}
+.updates.on{opacity:1;pointer-events:auto}
+.ubox{width:min(560px,100%);max-height:min(720px,88vh);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 30px 80px #000c,0 0 0 1px #000;transform:translateY(16px) scale(.97);transition:transform .3s cubic-bezier(.2,1.4,.4,1)}
+.updates.on .ubox{transform:none}
+.uhead{position:sticky;top:0;z-index:1;padding:20px 22px 14px;background:linear-gradient(180deg,#3a2c0a,#26272d);border-bottom:1px solid var(--line)}
+.uhead h2{font-size:30px;color:var(--gold1);text-shadow:0 3px 0 #000}
+.uhead p{color:#e6c76c;font-weight:700;font-size:13px}
+.uver{padding:16px 22px;border-bottom:1px solid var(--line)}
+.uver h3{display:flex;align-items:center;gap:8px;font-size:15px}
+.uver h3 .tag{font:800 11px Inter;background:var(--gold2);color:#2b1a00;border-radius:999px;padding:2px 8px}
+.uver h3 .tag.old{background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
+.uver h3 small{margin-left:auto;color:var(--muted);font-size:12px;font-weight:700}
+.uver ul{margin:8px 0 0 0;padding-left:18px;color:#d9d6e3;font-size:14px;line-height:1.55}
+.uver li b{color:#fff}
+.ufoot{position:sticky;bottom:0;padding:14px 22px;background:var(--panel);border-top:1px solid var(--line);display:flex;justify-content:flex-end}
+.ufoot button{background:var(--gold2);border:0;border-radius:12px;padding:10px 24px;font:400 18px "Luckiest Guy",Impact;color:#2b1a00;cursor:pointer}
+.summary .luck{font:800 12px Inter,sans-serif;padding:4px 10px;border-radius:999px;background:#ffffff12;color:#fff}
+.summary .luck.hi{background:#5fd35a26;color:#8ef08a}.summary .luck.lo{background:#ff4d5e22;color:#ff9aa4}
+.lb .ch{font-size:12px;color:var(--muted);font-weight:700;white-space:nowrap}
+.live{display:inline-flex;align-items:center;gap:6px;font:800 11px Inter;color:#8ef08a;letter-spacing:.06em}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:#5fd35a;box-shadow:0 0 8px #5fd35a;animation:autoPulse 1.4s infinite}
+.feed{list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.feed li{display:flex;align-items:center;gap:10px;font-size:13px;background:var(--panel2);border-radius:10px;padding:7px 10px;border-left:3px solid var(--rc)}
+.feed img{width:28px;height:28px;border-radius:6px;object-fit:cover;background:color-mix(in srgb,var(--rc) 45%,#120c2a)}
+.feed .fit{object-fit:contain;padding:2px}
+.feed span{flex:1}.feed time{color:var(--muted);font-size:11px;font-weight:700}
+.sect{display:flex;align-items:center;justify-content:space-between;margin:18px 0 4px}
+.sect h4{font-size:15px}
+
 @media (max-width:640px){
   .navbtn .lbl{display:none}
   .tokens small{display:none}
+  #autoBtn{width:54px}
   .presets button{padding:5px 9px}
   #openBtn{min-width:180px;height:56px;font-size:24px}
 }
@@ -341,6 +383,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
   <button class="navbtn" data-open="inv" title="Inventory">🎒 <span class="lbl">Inventory</span> <span class="badge" id="invBadge">0/5</span></button>
   <button class="navbtn" data-open="lb" title="Leaderboard">🏆 <span class="lbl">Leaderboard</span></button>
   <button class="navbtn" data-open="odds" title="Odds">🎲 <span class="lbl">Odds</span></button>
+  <button class="navbtn" id="updatesBtn" title="Update log">📜 <span class="lbl">Updates</span><span class="newdot" id="newDot" hidden></span></button>
   <div class="tokens" id="tokenBox" title="Pirate Shop Tokens">
     <img src="img/token.webp" alt="">
     <b id="tokenCount">0</b>
@@ -358,7 +401,10 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
       <button id="plus" aria-label="More chests">+</button>
     </div>
     <div class="presets" id="presets"></div>
-    <button id="openBtn">OPEN<span class="sub" id="openSub">1 CHEST</span></button>
+    <div class="openwrap">
+      <button id="openBtn">OPEN<span class="sub" id="openSub">1 CHEST</span></button>
+      <button id="autoBtn" title="Keep opening automatically">∞<span>AUTO</span></button>
+    </div>
     <div class="lagwarn" id="lagWarn" hidden></div>
   </div>
 </main>
@@ -372,6 +418,7 @@ main{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
   <div class="body" id="drawerBody"></div>
 </aside>
 
+<div class="updates" id="updates" aria-hidden="true"><div class="ubox" id="ubox"></div></div>
 <div class="bigwin" id="bigwin"><div class="box" id="bigwinBox"></div></div>
 <div class="vignette" id="vignette"></div>
 <div class="flash" id="flash"></div>
@@ -385,7 +432,13 @@ const REWARDS = [{"id": "uzi", "name": "Solid Gold Lil Uzi Vert", "type": "Outfi
 const RCOL = {mythic:'var(--r-mythic)',legendary:'var(--r-legend)',epic:'var(--r-epic)',rare:'var(--r-rare)',uncommon:'var(--r-unc)'};
 const byId = Object.fromEntries(REWARDS.map(r=>[r.id,r]));
 const $ = s=>document.querySelector(s);
-const fmt = n=>n.toLocaleString('en-US');
+const fmt = n=>Math.round(n).toLocaleString('en-US');
+const SUF=[[1e15,'Qa'],[1e12,'T'],[1e9,'B'],[1e6,'M']];
+function fmtBig(n){ // 1,234,567 -> 1.23M ; small numbers keep commas
+  if(n<1e6) return fmt(n);
+  if(n>=1e18) return n.toExponential(2).replace('e+','e');
+  for(const [v,u] of SUF) if(n>=v){ const x=n/v; return (x>=100?x.toFixed(0):x>=10?x.toFixed(1):x.toFixed(2)).replace(/\.0+$/,'')+u; }
+}
 
 /* ---------- local state ---------- */
 const store = {
@@ -399,31 +452,70 @@ let opened = store.get('pc_opened',0);
 let best = store.get('pc_best',null);
 let tokens = store.get('pc_tokens',0);
 let myName = store.get('pc_name','Anonymous');
-let count = Math.min(100_000_000,Math.max(1,store.get('pc_count',1)));
+let count = Math.min(1e15,Math.max(1,store.get('pc_count',1)));
+let auto = false;
 let busy = false;
 
-/* ---------- shared leaderboard (Firebase Realtime Database, optional) ---------- */
-// Paste your database URL here, e.g. 'https://pirate-chest-default-rtdb.firebaseio.com'
-const FIREBASE_URL = '';
-const fb = FIREBASE_URL.replace(/\/+$/,'');
+/* ---------- live leaderboard (no setup: shared channel on ntfy.sh) ----------
+   Every game posts its score to one public channel. Each browser keeps its own copy
+   of the whole board, and visitors re-post a snapshot every few hours so the board
+   stays alive even though the channel only remembers the last 12 hours. */
+const LB_CHANNEL = 'pirate-chest-live-v2-k7x29q4m';
+const LB_URL = 'https://ntfy.sh/'+LB_CHANNEL;
+const shortId = playerId.replace(/-/g,'').slice(0,12).toLowerCase();
+let lbCache = store.get('pc_lbcache',{});            // id -> {n,t,c,ts}
+let lastPush = 0, pushTimer = 0, lastPull = 0;
 async function nameFor(id){
   const h=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode('pc:'+id)));
   return 'Anonymous #'+(((h[0]<<16)|(h[1]<<8)|h[2])%9000+1000);
 }
-async function pushScore(){
-  if(!fb) return;
-  try{
-    await fetch(`${fb}/players/${playerId}.json`,{method:'PUT',
-      body:JSON.stringify({name:myName,tokens,t:{'.sv':'timestamp'}})});
-  }catch{}
+const myNum=()=>(myName.match(/\d{4}$/)||['0000'])[0];
+const okNum=v=>typeof v==='number'&&isFinite(v)&&v>=0&&v<1e21;
+function lbMerge(id,e){
+  if(!/^[0-9a-f]{12}$/.test(id)||!/^\d{4}$/.test(String(e.n))||!okNum(e.t)||!okNum(e.c||0)) return;
+  const o=lbCache[id]||{t:0,c:0,ts:0};
+  lbCache[id]={n:String(e.n),t:Math.max(o.t,e.t),c:Math.max(o.c,e.c||0),ts:Math.max(o.ts,e.ts||0)};
+}
+function lbSorted(){
+  return Object.entries(lbCache).map(([id,e])=>({id,...e})).filter(e=>e.t>0||e.c>0)
+    .sort((a,b)=>b.t-a.t||b.c-a.c);
+}
+function lbSave(){ const top=lbSorted().slice(0,300); lbCache=Object.fromEntries(top.map(e=>[e.id,{n:e.n,t:e.t,c:e.c,ts:e.ts}])); store.set('pc_lbcache',lbCache); }
+function publish(obj){ return fetch(LB_URL,{method:'POST',body:JSON.stringify(obj)}).catch(()=>{}); }
+function myEntry(){ return {k:'s',id:shortId,n:myNum(),t:tokens,c:opened,ts:Date.now()}; }
+function pushScore(){
+  if(!opened) return;
+  lbMerge(shortId,myEntry()); lbSave();
+  const wait=20000-(Date.now()-lastPush);
+  clearTimeout(pushTimer);
+  if(wait>0){ pushTimer=setTimeout(pushScore,wait); return; }
+  lastPush=Date.now(); publish(myEntry());
+}
+function publishPull(id,times){
+  if(Date.now()-lastPull<30000) return;
+  lastPull=Date.now(); publish({k:'p',id:shortId,n:myNum(),r:id,x:times,ts:Date.now()});
 }
 async function fetchBoard(){
-  if(!fb) return null;
-  const r=await fetch(`${fb}/players.json?orderBy=%22tokens%22&limitToLast=25`);
+  const r=await fetch(LB_URL+'/json?poll=1&since=all',{cache:'no-store'});
   if(!r.ok) throw new Error(r.status);
-  const d=await r.json()||{};
-  return Object.entries(d).map(([id,p])=>({id,name:p.name,tokens:p.tokens}))
-    .filter(p=>p.tokens>0).sort((a,b)=>b.tokens-a.tokens);
+  const text=await r.text(), feed=[]; let newestSnap=0;
+  for(const line of text.split('\n')){
+    if(!line) continue;
+    let m; try{ m=JSON.parse(line); }catch{ continue; }
+    if(m.event!=='message') continue;
+    let d; try{ d=JSON.parse(m.message); }catch{ continue; }
+    if(d.k==='s') lbMerge(d.id,d);
+    else if(d.k==='snap' && Array.isArray(d.p)){ newestSnap=Math.max(newestSnap,m.time*1000);
+      for(const e of d.p.slice(0,60)) if(Array.isArray(e)) lbMerge(e[0],{n:e[1],t:e[2],c:e[3],ts:e[4]}); }
+    else if(d.k==='p' && byId[d.r] && /^\d{4}$/.test(String(d.n))) feed.push({n:d.n,r:d.r,x:okNum(d.x)?d.x:1,ts:m.time*1000,id:d.id});
+  }
+  if(opened) lbMerge(shortId,myEntry());
+  lbSave();
+  const board=lbSorted();
+  // keep the board alive: re-post a snapshot if nobody has for 3 hours
+  if(board.length && Date.now()-newestSnap>3*3600e3)
+    publish({k:'snap',p:board.slice(0,40).map(e=>[e.id,e.n,e.t,e.c,e.ts])});
+  return {board, feed:feed.sort((a,b)=>b.ts-a.ts).slice(0,10)};
 }
 /* ---------- rolling (fast, works for millions) ---------- */
 const DOM_MAX = 100;        // up to this many: full animated chests
@@ -446,6 +538,29 @@ async function rollWins(n, onProgress){
     if(i>=nextYield && i<n){ nextYield+=2_000_000; onProgress&&onProgress(i/n); await sleep(0); }
   }
   return wins;
+}
+
+/* Batches over 2 million are counted with exact probability maths (multinomial sampling),
+   so any size — billions, trillions — finishes instantly with the same odds. */
+const EXACT_MAX = 2_000_000;
+const rnd=()=>(crypto.getRandomValues(new Uint32Array(1))[0]+0.5)/2**32;
+function gauss(){ return Math.sqrt(-2*Math.log(rnd()))*Math.cos(2*Math.PI*rnd()); }
+function binom(n,p){
+  if(p<=0||n<=0) return 0; if(p>=1) return n;
+  const mean=n*p;
+  if(mean<40){ let L=Math.exp(-mean), k=0, q=1; do{ k++; q*=rnd(); }while(q>L); return Math.min(n,k-1); } // Poisson
+  return Math.max(0,Math.min(n,Math.round(mean+Math.sqrt(mean*(1-p))*gauss())));
+}
+async function roll(n,onProgress){
+  const counts={};
+  if(window.__forceRoll || n<=EXACT_MAX){
+    const list=await rollWins(n,onProgress);
+    for(const w of list) counts[w.id]=(counts[w.id]||0)+1;
+    return {counts,list};
+  }
+  let rem=n, pRem=1;
+  for(const r of REWARDS){ const p=1/r.odds; const k=binom(rem,p/pRem); if(k) counts[r.id]=k; rem-=k; pRem-=p; }
+  return {counts,list:null};
 }
 
 /* ---------- layout: shrink chests to fit ---------- */
@@ -602,8 +717,8 @@ const CG=(()=>{
 })();
 
 /* ---------- quantity controls ---------- */
-const MAX = 100_000_000, PRESETS = [1,10,100,1000,10000,100000];
-const short=n=>n>=1e6?(n/1e6)+'M':n>=1e3?(n/1e3)+'K':String(n);
+const MAX = 1e15, PRESETS = [1,10,100,1000,1e6,1e9];
+const short=n=>n>=1e9?(n/1e9)+'B':n>=1e6?(n/1e6)+'M':n>=1e3?(n/1e3)+'K':String(n);
 function stepFor(n){ return n<10?1:n<100?5:5*10**(Math.floor(Math.log10(n))-1); }
 function setCount(n){
   if(busy) return;
@@ -615,20 +730,22 @@ function setCount(n){
 function updateControls(){
   const qi=$('#qtyIn'); if(document.activeElement!==qi) qi.value=fmt(count);
   $('#qtyUnit').textContent=count===1?'CHEST':'CHESTS';
-  $('#openSub').textContent=`${fmt(count)} ${count===1?'CHEST':'CHESTS'}`;
+  $('#openSub').textContent=`${count<1e6?fmt(count):fmtBig(count)} ${count===1?'CHEST':'CHESTS'}`;
   $('#minus').disabled=count<=1; $('#plus').disabled=count>=MAX; qi.disabled=false;
   document.querySelectorAll('#presets button').forEach(b=>{b.disabled=false;b.classList.toggle('on',+b.dataset.n===count)});
   const w=$('#lagWarn');
   if(count>DOM_MAX){
     w.hidden=false;
     w.innerHTML=`⚠ Opening more than 100 chests at once <b>may cause lag</b> on slower devices. Big batches use a faster view to keep things smooth.`
-      + (count>DRAW_CAP?` Showing ${fmt(DRAW_CAP)} chests on screen, but all ${fmt(count)} are rolled.`:'');
+      + (count>EXACT_MAX?` Huge batches are counted instantly with exact odds maths, and ${fmt(DRAW_CAP)} chests are drawn on screen.`
+        : count>DRAW_CAP?` Showing ${fmt(DRAW_CAP)} chests on screen, but all ${fmt(count)} are rolled.`:'');
   } else w.hidden=true;
 }
 function parseCount(str){
-  const m=String(str).trim().toLowerCase().replace(/[, _]/g,'').match(/^(\d+(?:\.\d+)?)([km]?)$/);
+  const m=String(str).trim().toLowerCase().replace(/[, _]/g,'').match(/^(\d+(?:\.\d+)?)(k|m|b|t|q|qa)?$/);
   if(!m) return null;
-  return Math.round(parseFloat(m[1])*(m[2]==='k'?1e3:m[2]==='m'?1e6:1));
+  const mul={k:1e3,m:1e6,b:1e9,t:1e12,q:1e15,qa:1e15}[m[2]]||1;
+  return Math.round(parseFloat(m[1])*mul);
 }
 $('#presets').innerHTML=PRESETS.map(n=>`<button data-n="${n}">×${short(n)}</button>`).join('');
 $('#presets').onclick=e=>{const b=e.target.closest('button'); if(b) setCount(+b.dataset.n)};
@@ -646,13 +763,22 @@ function cardHTML(r){
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 $('#openBtn').onclick=openChests;
-document.addEventListener('keydown',e=>{if(e.code==='Space'&&!e.repeat&&e.target.tagName!=='INPUT'&&!document.querySelector('.drawer.on,.bigwin.on')){e.preventDefault();openChests()}});
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&!e.repeat&&e.target.tagName!=='INPUT'&&!document.querySelector('.drawer.on,.bigwin.on,.updates.on')){e.preventDefault();openChests()}});
+$('#autoBtn').onclick=()=>setAuto(!auto);
+function setAuto(v){
+  auto=v; $('#autoBtn').classList.toggle('on',auto);
+  $('#autoBtn').title=auto?'Stop auto-opening':'Keep opening automatically';
+  if(auto){ toast('Auto-open on — press ∞ or Esc to stop.'); if(!busy) openChests(); }
+}
 
-function showSummary(wins, total){
-  const by={}; for(const w of wins) by[w.id]=(by[w.id]||0)+1;
-  const chips=REWARDS.filter(r=>by[r.id]).map(r=>`<span class="chip ${r.fit?'fit':''}" style="--rc:${RHEX[r.rarity]}"><img src="img/${r.img}.webp" alt="">${r.name} <b>×${fmt(by[r.id])}</b></span>`).join('');
+function showSummary(counts, total){
+  const chips=REWARDS.filter(r=>counts[r.id]).map(r=>`<span class="chip ${r.fit?'fit':''}" style="--rc:${RHEX[r.rarity]}"><img src="img/${r.img}.webp" alt="">${r.name} <b>×${fmtBig(counts[r.id])}</b></span>`).join('');
+  const expected=total*REWARDS.reduce((s,r)=>s+1/r.odds,0), got=Object.values(counts).reduce((a,b)=>a+b,0);
+  const luck=expected>=1?Math.round(got/expected*100):null;
   const el=$('#summary');
-  el.innerHTML=`<span class="tot">${fmt(total)} opened</span>`+(chips||'<span class="none">No rewards this time</span>');
+  el.innerHTML=`<span class="tot">${fmtBig(total)} opened</span>`
+    +(luck!=null?`<span class="luck ${luck>=105?'hi':luck<=95?'lo':''}" title="Rewards found vs. expected for this many chests">🍀 Luck ${luck}%</span>`:'')
+    +(chips||'<span class="none">No rewards this time</span>');
   el.hidden=false; el.style.animation='none'; void el.offsetWidth; el.style.animation='';
 }
 
@@ -666,29 +792,27 @@ async function openChests(){
   // fresh, closed chests
   buildGrid();
   const sub=$('#openSub');
-  if(count>2_000_000) sub.textContent='ROLLING…';
-  const winList=await rollWins(count, f=>{sub.textContent=`ROLLING ${Math.round(f*100)}%`});
+  if(count>EXACT_MAX) sub.textContent='COUNTING…';
+  const {counts,list}=await roll(count, f=>{sub.textContent=`ROLLING ${Math.round(f*100)}%`});
   updateControls(); lockControls(true);
   await sleep(60);
 
   const stagger=dom?Math.min(70,1400/count):0;
-  const cool=dom?1900+stagger*count:2600;
+  const cool=dom?(auto?1300:1900)+stagger*count:(auto?1500:2600);
   btn.style.setProperty('--cool',cool+'ms');
   void btn.offsetWidth; btn.classList.add('recharging'); btn.classList.remove('cool');
 
   // bookkeeping (works for any number of wins)
   opened+=count; store.set('pc_opened',opened);
-  for(const w of winList){
-    inv[w.id]=(inv[w.id]||0)+1;
-    if(!best||byId[w.id].odds>byId[best].odds) best=w.id;
-  }
+  for(const r of REWARDS){ const k=counts[r.id]||0; if(!k) continue;
+    inv[r.id]=(inv[r.id]||0)+k; if(!best||r.odds>byId[best].odds) best=r.id; }
   store.set('pc_inv',inv); store.set('pc_best',best);
 
-  const tokenWins=winList.filter(w=>byId[w.id].tokens);
-  let tokenEl=null, openedAt=0;
+  const tokenTotal=(counts.token||0)*byId.token.tokens;
+  let tokenEl=null;
 
   if(dom){
-    const chests=[...$('#grid').children], at=new Map(winList.map(w=>[w.i,w.id]));
+    const chests=[...$('#grid').children], at=new Map(list.map(w=>[w.i,w.id]));
     chests.forEach((el,i)=>{
       const id=at.get(i), r=id&&byId[id];
       const rw=el.querySelector('.reward'), lb=el.querySelector('.label');
@@ -711,50 +835,52 @@ async function openChests(){
         setTimeout(()=>{el.classList.remove('shake');el.classList.add('open')},520);
       }, i*stagger);
     });
-    openedAt=(count-1)*stagger+620;
-    await sleep(openedAt+500);
+    await sleep((count-1)*stagger+620+500);
   }else{
-    // spread wins over the drawn cells
-    const n=CG.n, map=new Map(); let tokenCell=-1;
-    const ordered=winList.length>n?[...winList].sort((a,b)=>byId[b.id].odds-byId[a.id].odds):winList; // rarest first
-    for(const w of ordered){
-      if(map.size>=n) break;
-      let c=Math.floor(w.i*n/count); let tries=0;
-      while(map.has(c) && tries<n){ c=(c+1)%n; tries++; }
-      if(tries>=n) break;
-      map.set(c,w.id);
-      if(tokenCell<0 && byId[w.id].tokens) tokenCell=c;
+    // place wins on random drawn chests, rarest first
+    const n=CG.n, ids=[];
+    for(const r of [...REWARDS].sort((a,b)=>b.odds-a.odds)){
+      const k=Math.min(counts[r.id]||0, n-ids.length); for(let j=0;j<k;j++) ids.push(r.id);
     }
+    const cells=[...Array(n).keys()];
+    for(let j=0;j<ids.length;j++){ const x=j+Math.floor(rnd()*(n-j)); [cells[j],cells[x]]=[cells[x],cells[j]]; }
+    const map=new Map(); let tokenCell=-1;
+    ids.forEach((id,j)=>{ map.set(cells[j],id); if(tokenCell<0&&byId[id].tokens) tokenCell=cells[j]; });
     CG.setWins(map);
-    showSummary(winList,count);
+    showSummary(counts,count);
     await CG.openAll(new Set(tokenCell>=0?[tokenCell]:[]));
     if(tokenCell>=0){
       // put a real chest over that spot so it can do the full cinematic
-      const r=CG.cellRect(tokenCell), el=chestEl(), tr=byId[map.get(tokenCell)];
+      const r=CG.cellRect(tokenCell), el=chestEl(), tr=byId.token;
       el.classList.add('overlay','win'); el.style.setProperty('--rc',RCOL[tr.rarity]);
       el.style.left=r.left+'px'; el.style.top=r.top+'px'; el.style.setProperty('--cw',r.w+'px');
-      el.querySelector('.label').innerHTML=`<span class="n">${tr.name}</span><span class="t">+${fmt(tokenWins.length*tr.tokens)} Tokens</span>`;
+      el.querySelector('.label').innerHTML=`<span class="n">${tr.name}</span><span class="t">+${fmtBig(tokenTotal)} Tokens</span>`;
       if(r.w<130) el.classList.add('compact');
       $('#stage').appendChild(el); CG.hide(tokenCell); tokenEl=el;
       await sleep(150);
     }
-    openedAt=performance.now()-t0;
   }
 
   // Pirate Token: zoom in, rumble, go gold, burst, play the animation
-  if(tokenWins.length){
-    const newTotal = tokens+tokenWins.reduce((s,w)=>s+byId[w.id].tokens,0);
-    await tokenScene(tokenEl, newTotal);
-    pushScore();
-  }
+  if(tokenTotal) await tokenScene(tokenEl, tokens+tokenTotal);
   renderBadge();
 
   // big celebration for the rarest non-token pull in this batch
-  const top=winList.map(w=>byId[w.id]).filter(r=>!r.tokens).sort((a,b)=>b.odds-a.odds)[0];
-  if(top && top.odds>=7000) showBigWin(top);
+  const top=REWARDS.filter(r=>!r.tokens&&counts[r.id]).sort((a,b)=>b.odds-a.odds)[0];
+  if(top && top.odds>=7000) showBigWin(top, auto);
+
+  // live board + big-pull feed
+  pushScore();
+  const rare=REWARDS.filter(r=>counts[r.id]&&r.odds>=7000).sort((a,b)=>b.odds-a.odds)[0];
+  if(rare) publishPull(rare.id,counts[rare.id]);
 
   await sleep(Math.max(0,cool-(performance.now()-t0)));
   btn.disabled=false; busy=false; lockControls(false);
+  if(auto) setTimeout(()=>{ if(auto&&!busy&&!$('#bigwin').classList.contains('on')) openChests(); else if(auto) waitThenAuto(); },350);
+}
+function waitThenAuto(){ // resume auto after a popup closes
+  const t=setInterval(()=>{ if(!auto){clearInterval(t);return}
+    if(!busy&&!$('#bigwin').classList.contains('on')&&!$('#updates').classList.contains('on')){clearInterval(t);openChests()} },400);
 }
 
 function flyToken(fromEl){
@@ -769,7 +895,7 @@ function flyToken(fromEl){
   setTimeout(()=>img.remove(),950);
 }
 
-function showBigWin(r){
+function showBigWin(r, autoClose){
   const box=$('#bigwinBox'), bw=$('#bigwin');
   bw.style.setProperty('--rc',RCOL[r.rarity]);
   const title = r.rarity==='mythic'?'MYTHIC PULL!':'LEGENDARY!';
@@ -777,6 +903,7 @@ function showBigWin(r){
     <p>${r.name}<span>${r.type} · 1 in ${fmt(r.odds)}</span></p><button id="bwClose">Collect</button>`;
   bw.classList.add('on'); confetti();
   $('#bwClose').onclick=()=>bw.classList.remove('on');
+  if(autoClose) setTimeout(()=>bw.classList.remove('on'),2600);
 }
 $('#bigwin').onclick=e=>{if(e.target.id==='bigwin')e.currentTarget.classList.remove('on')};
 function confetti(){
@@ -923,7 +1050,7 @@ async function tokenScene(el, newTotal){
 
 /* ---------- header ---------- */
 function renderTokens(bump){
-  $('#tokenCount').textContent=fmt(tokens);
+  $('#tokenCount').textContent=fmtBig(tokens);
   if(bump){const t=$('#tokenBox'); t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump')}
 }
 function foundCount(){return REWARDS.filter(r=>!r.tokens&&inv[r.id]).length}
@@ -934,7 +1061,7 @@ let tab='inv';
 document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDrawer(b.dataset.open));
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>openDrawer(b.dataset.tab));
 $('#scrim').onclick=$('#closeDrawer').onclick=closeDrawer;
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();$('#bigwin').classList.remove('on')}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDrawer();$('#bigwin').classList.remove('on');closeUpdates();if(auto)setAuto(false)}});
 function closeDrawer(){$('#drawer').classList.remove('on');$('#scrim').classList.remove('on');$('#drawer').setAttribute('aria-hidden','true')}
 function openDrawer(t){
   tab=t; $('#drawer').classList.add('on'); $('#scrim').classList.add('on'); $('#drawer').setAttribute('aria-hidden','false');
@@ -946,39 +1073,41 @@ function renderInv(){
   const total=REWARDS.filter(r=>!r.tokens).length;
   $('#drawerBody').innerHTML=`
     <div class="statrow">
-      <div class="stat"><b>${fmt(opened)}</b><span>Opened</span></div>
-      <div class="stat"><b>${fmt(Object.values(inv).reduce((a,b)=>a+b,0))}</b><span>Rewards</span></div>
-      <div class="stat"><b>${fmt(tokens)}</b><span>Tokens</span></div>
+      <div class="stat"><b>${fmtBig(opened)}</b><span>Opened</span></div>
+      <div class="stat"><b>${fmtBig(Object.values(inv).reduce((a,b)=>a+b,0))}</b><span>Rewards</span></div>
+      <div class="stat"><b>${fmtBig(tokens)}</b><span>Tokens</span></div>
     </div>
     <div class="found"><b class="display">${foundCount()}/${total} found</b><span class="muted">${best?'Best: '+byId[best].name:'Nothing yet — keep opening!'}</span></div>
     <div class="inv">${REWARDS.map(r=>{
       const n=inv[r.id]||0;
       return `<div class="item ${n?'':'locked'}" style="--rc:${RCOL[r.rarity]}">
         <div class="art ${r.fit?'fit':''}"><img src="img/${r.img}.webp" alt="" loading="lazy"></div>
-        ${n?`<span class="count">×${fmt(n)}</span>`:''}
+        ${n?`<span class="count">×${fmtBig(n)}</span>`:''}
         <div class="meta"><b>${r.name}</b><span>${r.type}</span></div></div>`}).join('')}
     </div>`;
 }
+const ago=ts=>{const s=Math.max(1,(Date.now()-ts)/1000);return s<60?Math.round(s)+'s ago':s<3600?Math.round(s/60)+'m ago':Math.round(s/3600)+'h ago'};
 async function renderLb(){
   const body=$('#drawerBody');
-  body.innerHTML='<p class="muted">Loading…</p>';
-  try{
-    let board=await fetchBoard(), local=false;
-    if(!board){ local=true; board=tokens>0?[{id:playerId,name:myName,tokens}]:[]; }
-    const top=board.map(p=>({...p,you:p.id===playerId}));
-    const idx=top.findIndex(p=>p.you);
-    const d={top, me:{name:myName,tokens,rank:idx>=0?idx+1:null}};
+  const draw=(board,feed,offline)=>{
     if(tab!=='lb') return;
-    const rows=d.top.map((p,i)=>`<li class="${p.you?'you':''}"><span class="rk">${i+1}</span>
-      <span class="nm">${p.name}${p.you?'<em>YOU</em>':''}</span>
-      <span class="tk"><img src="img/token.webp" alt="">${fmt(p.tokens)}</span></li>`).join('');
-    body.innerHTML = (rows?`<ol class="lb">${rows}</ol>`:
-      `<div class="empty-lb"><img src="img/token.webp" alt=""><p><b>No one has found a Pirate Token yet.</b></p><p class="muted">It's a 1 in 137,500 drop — be the first on the board.</p></div>`)
-      + `<div class="me">You are <b>${d.me.name}</b> · ${fmt(d.me.tokens)} tokens${d.me.rank?` · rank #${d.me.rank}`:''}</div>
-         <p class="muted" style="margin-top:10px">${local?"The shared leaderboard isn't connected yet, so only your own score is shown.":"Everyone is anonymous. Players appear here once they've found at least one Pirate Shop token."}</p>`;
-  }catch{
-    body.innerHTML='<p class="muted">The leaderboard is unavailable right now. Try again in a moment.</p>';
-  }
+    const top=board.slice(0,25), idx=board.findIndex(p=>p.id===shortId);
+    const rows=top.map((p,i)=>`<li class="${p.id===shortId?'you':''}"><span class="rk">${i+1}</span>
+      <span class="nm">Anonymous #${p.n}${p.id===shortId?'<em>YOU</em>':''}<br><span class="ch">${fmtBig(p.c)} chests</span></span>
+      <span class="tk"><img src="img/token.webp" alt="">${fmtBig(p.t)}</span></li>`).join('');
+    const fl=(feed||[]).map(f=>{const r=byId[f.r];return `<li style="--rc:${RHEX[r.rarity]}"><img class="${r.fit?'fit':''}" src="img/${r.img}.webp" alt="">
+      <span><b>Anonymous #${f.n}</b> pulled <b>${r.name}</b>${f.x>1?' ×'+fmtBig(f.x):''}</span><time>${ago(f.ts)}</time></li>`}).join('');
+    body.innerHTML=`<div class="sect"><h4 class="display">Top players</h4>${offline?'<span class="muted">offline · saved copy</span>':'<span class="live">LIVE</span>'}</div>`
+      +(rows?`<ol class="lb">${rows}</ol>`:`<div class="empty-lb"><img src="img/token.webp" alt=""><p><b>The board is empty.</b></p><p class="muted">Open some chests to claim the top spot.</p></div>`)
+      +`<div class="me">You are <b>${myName}</b> · ${fmtBig(tokens)} tokens · ${fmtBig(opened)} chests${idx>=0?` · rank #${idx+1}`:''}</div>`
+      +`<div class="sect"><h4 class="display">Recent big pulls</h4><span class="muted">last 12 hours</span></div>`
+      +(fl?`<ul class="feed">${fl}</ul>`:'<p class="muted">No big pulls yet. Golden Llama Crew or rarer shows up here.</p>')
+      +`<p class="muted" style="margin-top:12px">Everyone is anonymous. Ranked by Pirate Tokens, then chests opened.</p>`;
+  };
+  if(opened) lbMerge(shortId,myEntry());
+  draw(lbSorted(),null,false);                       // instant: saved copy
+  try{ const {board,feed}=await fetchBoard(); draw(board,feed,false); }
+  catch{ draw(lbSorted(),null,true); }
 }
 function renderOdds(){
   const any=REWARDS.reduce((s,r)=>s+1/r.odds,0);
@@ -986,14 +1115,48 @@ function renderOdds(){
       <td><span class="sw"></span><span><b>${r.name}</b><br><span class="muted">${r.type}</span></span></td>
       <td>1 in ${fmt(r.odds)}</td></tr>`).join('')}
       <tr><td><span class="sw" style="background:#555"></span><b>Any reward</b></td><td>1 in ${fmt(Math.round(1/any))}</td></tr></table>
-    <p class="muted" style="margin-top:12px">Every chest is rolled independently.</p>`;
+    <p class="muted" style="margin-top:12px">Every chest is rolled independently. Batches over 2 million are counted with exact probability maths, so even trillions finish instantly with the same odds.</p>`;
 }
 
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)}
 
+/* ---------- update log (pops up by itself when there's a new version) ---------- */
+const APP_VERSION='2.0';
+const UPDATES=[
+  {v:'2.0',date:'20 Nov 2026',title:'Infinite Chests Update',items:[
+    '<b>Open billions of chests</b>: type any amount (try <b>5b</b> or <b>2t</b>), up to a quadrillion at once. Huge batches are counted instantly with exact odds maths.',
+    '<b>∞ Auto-open</b>: press ∞ next to Open and it keeps opening by itself. Press it again or Esc to stop.',
+    '<b>Live leaderboard</b>: no setup needed. Ranked by Pirate Tokens, then chests opened.',
+    '<b>Recent big pulls</b> feed on the leaderboard: see who just pulled something rare.',
+    '<b>🍀 Luck meter</b> in the results bar: how lucky your batch was against the odds.',
+    '<b>New quick amounts</b>: ×1M and ×1B buttons.',
+    'This update log, which pops up automatically whenever there\'s something new.']},
+  {v:'1.3',date:'18 Nov 2026',title:'Pirate Token Cinematic',items:[
+    'The real Pirate Shop Access animation now plays across the top of the screen, with no green screen.',
+    'Plays with sound, and works on iPhone too.']},
+  {v:'1.2',date:'18 Nov 2026',title:'Big Batches',items:[
+    'Open up to 100 million chests, with a fast view that stays smooth.',
+    'Results bar that totals every reward in a batch.']},
+  {v:'1.1',date:'18 Nov 2026',title:'Token Drop',items:[
+    'Winning a Pirate Token zooms in, rumbles, turns gold with spinning rings, then bursts open.']},
+  {v:'1.0',date:'18 Nov 2026',title:'Launch',items:['Pirate Chest opens for business: chests, inventory, odds and leaderboard.']},
+];
+function openUpdates(){
+  $('#ubox').innerHTML=`<div class="uhead"><h2 class="display">What's New</h2><p>Version ${APP_VERSION} · ${UPDATES[0].title}</p></div>`
+    +UPDATES.map((u,i)=>`<div class="uver"><h3><span class="tag ${i?'old':''}">v${u.v}</span>${u.title}<small>${u.date}</small></h3><ul>${u.items.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')
+    +`<div class="ufoot"><button id="uClose">Let's go!</button></div>`;
+  $('#updates').classList.add('on'); $('#updates').setAttribute('aria-hidden','false');
+  $('#uClose').onclick=closeUpdates;
+  store.set('pc_seen',APP_VERSION); $('#newDot').hidden=true;
+}
+function closeUpdates(){ $('#updates').classList.remove('on'); $('#updates').setAttribute('aria-hidden','true'); }
+$('#updatesBtn').onclick=openUpdates;
+$('#updates').onclick=e=>{ if(e.target.id==='updates') closeUpdates(); };
+if(store.get('pc_seen',null)!==APP_VERSION){ $('#newDot').hidden=false; setTimeout(openUpdates,700); }
+
 /* ---------- boot ---------- */
 renderTokens(); renderBadge(); setCount(count);
-nameFor(playerId).then(n=>{myName=n;store.set('pc_name',n)}).catch(()=>{});
+nameFor(playerId).then(n=>{myName=n;store.set('pc_name',n); if(opened) pushScore();}).catch(()=>{});
 REWARDS.forEach(r=>{const i=new Image();i.src='img/'+r.img+'.webp'});
 </script>
 </body>
